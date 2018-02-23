@@ -1,0 +1,91 @@
+<div class="box">
+  <div class="box-header">
+    <div class="box-btns">
+      <a class="btn btn-success btn-sm " (click)="create()">创建</a>
+    </div>
+    <div class="box-tools">
+      <div class="input-group input-group-sm w35">
+        <div class="input-group-btn-alone" >
+          <button type="submit" class="btn btn-primary" (click)="findPage(true)">查询</button>
+        </div>
+      </div>
+      <div class="input-group input-group-sm w100">
+        <input type="text" name="table_search" [formControl]="userCodeFilter" class="form-control pull-right"
+               placeholder="钱包账号">
+
+      </div>
+      <div class="input-group input-group-sm w100">
+        <input type="text" name="table_search" [formControl]="mobileFilter" class="form-control pull-right"
+               placeholder="手机号">
+      </div>
+      <div class="input-group input-group-sm w100">
+        <select class="form-control" [formControl]="typeFilter">
+          <option value="">支付渠道</option>
+          <option value="1">微信</option>
+          <option value="2">中金</option>
+          <option value="9">转账</option>
+        </select>
+      </div>
+      <div class="input-group input-group-sm w100">
+        <select class="form-control" [formControl]="refundStatusFilter">
+          <option value="">退款状态</option>
+          <option value="1">等待退款</option>
+          <option value="2">退款成功</option>
+          <option value="3">退款失败</option>
+        </select>
+      </div>
+      <div class="input-group input-group-sm w100">
+        <select class="form-control" [formControl]="statusFilter">
+          <option value="">支付状态</option>
+          <option value="1">等待支付</option>
+          <option value="2">支付成功</option>
+          <option value="3">同步异常</option>
+          <option value="4">支付失败</option>
+        </select>
+      </div>
+      <div class="input-group input-group-sm">
+        <input type="text" name="table_search" [formControl]="tradeNoFilter" class="form-control pull-right"
+               placeholder="商户单号">
+      </div>
+    </div>
+
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <tr>
+        <th>ID</th>
+        <th>钱包账号</th>
+        <th>商户单号</th>
+        <th>支付渠道</th>
+        <th>金额</th>
+        <th>状态</th>
+        <th>支付方式</th>
+        <th>支付时间</th>
+        <th>退款</th>
+        <th>创建时间</th>
+        <th>操作</th>
+      </tr>
+      <tr *ngFor="let e of rechargeList ;let i = index;">
+        <td>{{e.id}}</td>
+        <td>{{e.userCode}}</td>
+        <td>{{e.tradeNo}}</td>
+        <td>{{e.type|transform:"payType"}}</td>
+        <td>{{e.figure}}</td>
+        <td>{{e.status|transform:"rechargeStatus"}}</td>
+        <td>{{e.tradeType|transform:"payTradeType"}}</td>
+        <td>{{e.payTime}}</td>
+        <td>{{e.refundStatus|transform:"refundStatus"}}</td>
+        <td>{{e.createTime}}</td>
+        <td>
+          <a class="btn btn-warning btn-xs" (click)="view(e.id)">查看</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- /.box-body -->
+  <app-simple-page [page]="page" (pageChange)="pageChange($event)"></app-simple-page>
+  <div class="overlay" *ngIf="loading">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<div>
+  <button (click)="addSysAddress()">新建</button>
+</div>
+<form [formGroup]="formModel">
+  <table class="search">
+    <tr>
+      <td><label>省市区筛选：</label>
+        <select formControlName="sendProvince" id="province" (change)="chooseProvince()">
+          <option value="">-请选择-</option>
+          <option *ngFor="let province of provinces ;let i = index;" value="{{province.name}}" >{{province.value}}</option>
+        </select>
+
+        <select formControlName="sendCity" id="city" (change)="chooseCity()">
+          <option value="">-请选择-</option>
+          <option *ngFor="let city of citys ;let i = index;" value="{{city.name}}">{{city.name}}</option>
+        </select>
+
+        <select  formControlName="sendCounty" id="county" (change)="chooseCounty()">
+          <option value="">-请选择-</option>
+          <option *ngFor="let county of countys ;let i = index;" value="{{county.name}}">{{county.name}}</option>
+        </select>
+
+        <select formControlName="sendTown" id="town">
+          <option value="">-请选择-</option>
+          <option *ngFor="let town of towns ;let i = index;" value="{{town}}">{{town}}</option>
+        </select>
+      </td>
+      <td>
+        <label>搜索地址：</label>
+        <input  formControlName="Company" id="Company" type="text" class="layui-input" placeholder="详细地址">
+      </td>
+      <td>
+        <label>类别：</label>
+        <select formControlName="category" id="category">
+          <option value="">-请选择-</option>
+          <option value="1">煤台</option>
+          <option value="2">煤矿</option>
+          <option value="3">洗煤厂</option>
+        </select>
+
+      </td>
+
+      <!-- <td></td> -->
+      <td>
+        <button class="search_btn" (click)="searchaddre()">搜索</button>
+
+      </td>
+    </tr>
+  </table>
+</form>
+<div class="box">
+  <div class="box-header">
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <tr>
+        <th>地址</th>
+        <th>详细地址</th>
+        <th>类型</th>
+        <th>删除状态</th>
+        <th>操作</th>
+      </tr>
+      <tr *ngFor="let info of data ;let i = index;">
+        <td>{{info.province+info.city+info.county+info.town+info.street}}</td>
+        <td>{{info.address}}</td>
+        <td>{{type(info.type)}}</td>
+        <td>{{info.isDel!=null&&info.isDel==1?"已删除":"未删除"}}</td>
+        <td>
+          <a class="btn btn-warning btn-xs" (click)="addressDelete(info.id)">删除</a>
+          <a class="btn btn-warning btn-xs" (click)="editsystemaddre(i)">修改</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- /.box-body -->
+  <app-pagination [currentPage]="pageNum" [pageSize]="10" [totalNum]="totalNum" [totalPages]="totalPages" (pageChange)="changePageNum($event)"></app-pagination>
+</div>
+<!-- /.box -->

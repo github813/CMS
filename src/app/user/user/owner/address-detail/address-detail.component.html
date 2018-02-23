@@ -1,0 +1,82 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <ul class="nav nav-tabs">
+      <li role="presentation"><a (click)="showUserDetail(id)">基本信息</a></li>
+      <li role="presentation"><a (click)="showOrderDetail(id)">货单信息</a></li>
+      <li role="presentation"><a (click)="showEvaluateDetail(id)">评价信息</a></li>
+      <li role="presentation"  class="active"><a (click)="showAddressDetail(id)">地址信息</a></li>
+      <li role="presentation"><a (click)="showBlackDetail(id)">黑名单信息</a></li>
+    </ul>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body">
+    <form class="row form-horizontal" [formGroup]="addressDetailForm" >
+      <div class="col-lg-3">
+        <div class="form-group">
+          <label for="addtype" class="col-lg-5 control-label">地址类型：</label>
+          <div class="col-lg-7">
+            <select id="addtype" formControlName="addtype" class="form-control">
+              <option value="">全部</option>
+              <option value="1">发货地址</option>
+              <option value="2">收货地址</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-1">
+        <input type="button" class="btn btn-block btn-primary" (click)="search()"  value="搜索">
+      </div>
+    </form>
+  </div>
+  <!-- form start -->
+  <div class="box">
+    <div class="box-header">
+
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body table-responsive no-padding">
+      <table class="table table-hover">
+        <tr>
+          <th>地址类型</th>
+          <th>公司</th>
+          <th>省</th>
+          <th>市</th>
+          <th>县（区）</th>
+          <th>镇（村）</th>
+          <th>详细地址</th>
+          <th>是否默认</th>
+          <th>主联系人</th>
+          <th>联系电话</th>
+          <th>操作</th>
+        </tr>
+        <tr  *ngFor="let ownerAddress of OwnerAddressList ;let i = index;">
+          <td>
+            <span *ngIf="ownerAddress.type==1">发货信息</span>
+            <span *ngIf="ownerAddress.type==2">收货信息</span>
+          </td>
+
+          <td>{{ownerAddress.company}}</td>
+          <td>{{ownerAddress.province}}</td>
+          <td>{{ownerAddress.city}}</td>
+          <td>{{ownerAddress.county}}</td>
+          <td>{{ownerAddress.town}}</td>
+          <td>{{ownerAddress.address}}</td>
+          <td>
+            <span *ngIf="ownerAddress.def==0">否</span>
+            <span *ngIf="ownerAddress.def==1">是</span>
+          </td>
+          <td>{{ownerAddress.name}}</td>
+          <td>{{ownerAddress.phone}}</td>
+          <td>
+              <a (click)="checkinfo(ownerAddress.id,ownerAddress.type)">查看</a>
+              <a style="margin-left: 5px;" (click)="editinfo(ownerAddress.id,ownerAddress.type)">修改</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <!-- /.box -->
+
+
+
+</div>

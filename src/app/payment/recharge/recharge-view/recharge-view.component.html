@@ -1,0 +1,113 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">充值详情</h3>
+  </div>
+  <div class="box-body form-horizontal ">
+    <div class="col-md-6">
+    <div class="form-group">
+      <label class="col-sm-3 control-label">钱包账号:</label>
+      <div class="col-sm-9 input-group ">
+        <p class="form-control-static msl">{{rechargeView?.userCode}}</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">商户单号:</label>
+      <div class="col-sm-9 input-group ">
+        <p class="form-control-static msl">{{rechargeView?.tradeNo}}</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">外部单号:</label>
+      <div class="col-sm-9 input-group ">
+        <p class="form-control-static msl">{{rechargeView?.payNo}}</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">充值金额:</label>
+      <div class="col-sm-9 input-group ">
+        <p class="form-control-static msl">{{rechargeView?.figure}}</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">支付渠道:</label>
+      <div class="col-sm-9 input-group ">
+        <p class="form-control-static msl">{{rechargeView?.type|transform:"payType"}}</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">充值状态:</label>
+      <div class="col-sm-9 input-group ">
+        <p class="form-control-static msl">{{rechargeView?.status|transform:"rechargeStatus"}}</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">支付方式:</label>
+      <div class="col-sm-9 input-group ">
+        <p class="form-control-static msl">{{rechargeView?.tradeType|transform:"payTradeType"}}</p>
+      </div>
+    </div>
+
+
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="col-sm-3 control-label">支付时间:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{rechargeView?.payTime}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">退款状态:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{rechargeView?.refundStatus|transform:"refundStatus"}}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-3 control-label">退款时间:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{rechargeView?.refundTime}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">操作人员:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{operatorName}}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-3 control-label">创建时间:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{rechargeView?.createTime}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">修改时间:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{rechargeView?.modifiedTime}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">备注说明:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{rechargeView?.remark}}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="box-footer">
+    <button (click)="cancel()" type="button" class="btn btn-default">关闭</button>
+    <button (click)="sync()" *ngIf="synBtn" type="button" class="btn btn-info pull-right">同步</button>
+  </div>
+  <div class="overlay" *ngIf="loading">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="box-body">
+  <form class="row form-horizontal" [formGroup]="ownerAuthQCForm">
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="name" class="col-lg-5 control-label">姓名：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="name" class="col-lg-12 form-control" id="name" placeholder="姓名">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="cardNo" class="col-lg-5 control-label">身份证号：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="cardNo" class="col-lg-12 form-control" id="cardNo"
+                 placeholder="身份证号">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="status" class="col-lg-5 control-label">认证状态：</label>
+        <div class="col-lg-7">
+          <select id="status" (change)="chooseStatus()">
+            <option value="">全部</option>
+            <option value="1">审核失败</option>
+            <option value="2">审核通过</option>
+            <option value="0">审核中</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-1">
+      <input type="button" class="btn btn-block btn-primary btn-lg" (click)="searchOwnerAuthList()" value="搜索">
+    </div>
+    <!-- /.form group -->
+
+  </form>
+</div>
+
+<div class="box">
+  <div class="box-header">
+
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <tr>
+        <th>#</th>
+        <th>入驻类型</th>
+        <th>姓名</th>
+        <th>手机号</th>
+        <th>身份证号</th>
+        <th>提交日期</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+      <tr *ngFor="let ownerAuthInfo of ownerAuthInfoList ;let i = index;">
+        <td>{{ownerAuthInfo.id}}</td>
+        <td><span *ngIf="ownerAuthInfo.type==2">企业货主</span></td>
+        <td>{{ownerAuthInfo.name}}</td>
+        <td>{{ownerAuthInfo.mobile}}</td>
+        <td>{{ownerAuthInfo.cardNo}}</td>
+        <td>{{ownerAuthInfo.createTime}}</td>
+        <td>
+          <span *ngIf="ownerAuthInfo.status==0">审核中</span>
+          <span *ngIf="ownerAuthInfo.status==1">审核失败</span>
+          <span *ngIf="ownerAuthInfo.status==2">审核通过</span>
+          <span *ngIf="ownerAuthInfo.status==3">审核中</span>
+        </td>
+        <td>
+          <a class="btn btn-warning btn-xs" *ngIf="ownerAuthInfo.status==0 || ownerAuthInfo.status==3" (click)="update(ownerAuthInfo)">审核</a>
+          <a class="btn btn-info btn-xs" *ngIf="ownerAuthInfo.status==1 || ownerAuthInfo.status==2" (click)="update(ownerAuthInfo)">查看</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- /.box-body -->
+  <app-pagination [currentPage]="pageNum" [pageSize]="pageSize" [totalNum]="totalNum" [totalPages]="totalPages" (pageChange)="changePageNum($event)"></app-pagination>
+</div>
+<!-- /.box -->
+

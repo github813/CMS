@@ -1,0 +1,71 @@
+<div class="box">
+  <div class="box-header">
+    <div style="height: 30px;">
+    </div>
+    <div class="box-tools">
+      <div class="input-group input-group-sm w35">
+        <div class="input-group-btn-alone" >
+          <button type="submit" class="btn btn-primary" (click)="findPage(true)">查询</button>
+        </div>
+      </div>
+      <div class="input-group input-group-sm w100">
+        <input type="text" name="table_search" [formControl]="userCodeFilter" class="form-control pull-right"
+               placeholder="钱包账号">
+
+      </div>
+      <div class="input-group input-group-sm w100">
+        <input type="text" name="table_search" [formControl]="mobileFilter" class="form-control pull-right"
+               placeholder="手机号">
+      </div>
+      <div class="input-group input-group-sm w100">
+        <select class="form-control" [formControl]="statusFilter">
+          <option value="">提现状态</option>
+          <option value="0">初始</option>
+          <option value="1">进行中</option>
+          <option value="2">成功</option>
+          <option value="3">失败</option>
+          <option value="4">退汇</option>
+          <option value="5">回冲</option>
+        </select>
+      </div>
+      <div class="input-group input-group-sm">
+        <input type="text" name="table_search" [formControl]="payNoFilter" class="form-control pull-right"
+               placeholder="交易流水号">
+      </div>
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <tr>
+        <th>ID</th>
+        <th>钱包账号</th>
+        <th>状态</th>
+        <th>商户单号</th>
+        <th>交易流水号</th>
+        <th>金额</th>
+        <th>完成时间</th>
+        <th>创建时间</th>
+        <th>操作</th>
+      </tr>
+      <tr *ngFor="let e of dataList ;let i = index;">
+        <td>{{e.id}}</td>
+        <td>{{e.userCode}}</td>
+        <td>{{e.status|transform:"withdrawStatus"}}</td>
+        <td>{{e.tradeNo}}</td>
+        <td>{{e.payNo}}</td>
+        <td>{{e.figure}}</td>
+        <td>{{e.transferTime|dateBeautify}}</td>
+        <td>{{e.createTime}}</td>
+        <td>
+          <a class="btn btn-warning btn-xs" (click)="view(e.id)">查看</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- /.box-body -->
+  <app-simple-page [page]="page" (pageChange)="pageChange($event)"></app-simple-page>
+  <div class="overlay" *ngIf="loading">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
+</div>

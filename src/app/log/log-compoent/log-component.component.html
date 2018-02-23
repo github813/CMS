@@ -1,0 +1,115 @@
+<div class="box-body">
+  <form class="row form-horizontal msl" [formGroup]="logQCForm">
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="insurance" class="col-lg-5 control-label">日志级别：</label>
+        <div class="col-lg-7">
+          <select id="insurance" formControlName="level" class="form-control">
+            <option value="">全部</option>
+            <option value="warn" [selected]="logQCForm.get(['level']).value == 'warn'">warn</option>
+            <option value="error" [selected]="logQCForm.get(['level']).value == 'error'">error</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="threadName" class="col-lg-5 control-label">线程名(模糊)：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="threadName" class="col-lg-12 form-control" id="threadName"
+                 placeholder="线程名">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="msg" class="col-lg-5 control-label">日志信息(模糊)：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="msg" class="col-lg-12 form-control" id="msg" placeholder="日志信息">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="exceptionClass" class="col-lg-5 control-label">异常类(精确全类名)：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="exceptionClass" class="col-lg-12 form-control" id="exceptionClass"
+                 placeholder="异常类">
+        </div>
+      </div>
+    </div>
+    <!-- Date and time range -->
+    <div class="col-lg-7">
+      <div class="input-group">
+        <label for="timeRangeInput" class="col-lg-5 control-label">时间范围:</label>
+        <div class="input-group-addon">
+          <i class="fa fa-clock-o"></i>
+        </div>
+        <div id="timeRange" class="col-lg-7">
+          <input type="text" formControlName="timeRangeInput" id="timeRangeInput" class="col-lg-12 form-control">
+        </div>
+      </div>
+      <!-- /.input group -->
+    </div>
+    <div class="col-lg-1">
+      <input type="button" class="btn btn-block btn-primary" (click)="searchLog()" value="搜索">
+    </div>
+    <!-- /.form group -->
+
+  </form>
+</div>
+
+<div class="box">
+  <!-- /.box-header -->
+  <div class="box-body">
+    <table id="logListTable" class="table table-bordered table-striped" style="table-layout:fixed;word-wrap:break-word;">
+      <thead>
+      <tr>
+        <th  class="col-sm-1" >序号</th>
+        <th  class="col-sm-1">时间</th>
+        <th  class="col-sm-1">服务名</th>
+        <th  class="col-sm-1">级别</th>
+        <th  class="col-sm-1">线程</th>
+        <th  class="col-sm-4">日志信息</th>
+        <th  class="col-sm-2">异常类</th>
+        <th  class="col-sm-2">异常信息</th>
+        <th  class="col-sm-2">操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let i = index; let log of logList">
+        <td  class="col-sm-1">{{(logQCForm.get("pageNum").value - 1) * logQCForm.get("pageSize").value + i + 1}}</td>
+        <td  class="col-sm-1">{{log.time}}</td>
+        <td  class="col-sm-1">{{log.serviceName}}</td>
+        <td  class="col-sm-1">{{log.level}}</td>
+        <td  class="col-sm-1">{{log.threadName}}</td>
+        <td  class="col-sm-4" style="width: 500px;">{{log.msg}}</td>
+        <td  class="col-sm-2">{{log.e?._class}}</td>
+        <td  class="col-sm-2">{{log.e?.detailMessage}}</td>
+        <td  class="col-sm-2">
+          <!--<a (click)="deleteLog(log._id)">删除</a>-->
+          <a (click)="showStackTrace(log.e.stackTrace)">查看调用栈</a>
+        </td>
+
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <th  class="col-sm-1" >序号</th>
+        <th  class="col-sm-1">时间</th>
+        <th  class="col-sm-1">服务名</th>
+        <th  class="col-sm-1">级别</th>
+        <th  class="col-sm-1">线程</th>
+        <th  class="col-sm-4">日志信息</th>
+        <th  class="col-sm-2">异常类</th>
+        <th  class="col-sm-2">异常信息</th>
+        <th  class="col-sm-2">操作</th>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- /.box-body -->
+</div>
+<app-pagination [currentPage]="logQCForm.get('pageNum').value" [pageSize]="logQCForm.get('pageSize').value" [totalNum]="totalNum" [totalPages]="totalPages" (pageChange)="changePageNum($event)"></app-pagination>
+<app-stack-trace [stackTraceElements]="stackTraceElements"></app-stack-trace>

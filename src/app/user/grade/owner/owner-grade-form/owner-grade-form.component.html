@@ -1,0 +1,91 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">{{title}}</h3>
+  </div>
+  <!-- /.box-header -->
+  <!-- form start -->
+  <form class="form-horizontal msl" [formGroup]="formModel">
+    <div class="box-body">
+      <div class="form-group" [class.has-error]="!(formModel.get('gradeName').valid||formModel.get('gradeName').untouched)">
+        <label for="gradeName" class="col-sm-2 control-label">等级名称*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="gradeName" class="form-control" id="gradeName" placeholder="等级名称" >
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['gradeName'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['gradeName'])" >不能超过5个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('minlength',['gradeName'])" >不能少于3个字符</label>
+      </div>
+      <div class="form-group" [class.has-error]="!(formModel.get('gradeExp').valid||formModel.get('gradeExp').untouched)">
+        <label for="gradeExp" class="col-sm-2 control-label">升级所需经验值*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="gradeExp" class="form-control" id="gradeExp" placeholder="升级所需经验值（只能为数字）" >
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['gradeExp'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('int',['gradeExp'])||formModel.get('gradeExp').value == ''" >经验值必须为正整数</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['gradeExp'])" >不能超过7个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('minlength',['gradeExp'])" >不能少于1个字符</label>
+      </div>
+      <div class="form-group" [class.has-error]="!(formModel.get('informationRate').valid||formModel.get('informationRate').untouched)">
+        <label for="informationRate" class="col-sm-2 control-label">信息费费率*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="informationRate" class="form-control" id="informationRate" placeholder="信息费费率（只能为数字）">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['informationRate'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('max',['informationRate'])" >不能大于1</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('min',['informationRate'])" >不能小于等于0</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('pattern',['informationRate'])" >必须是大于等于0小于等于1的数值</label>
+
+      </div>
+      <div class="form-group" [class.has-error]="!(formModel.get('insuranceRate').valid||formModel.get('insuranceRate').untouched)">
+        <label for="insuranceRate" class="col-sm-2 control-label">担保费优惠*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="insuranceRate" class="form-control" id="insuranceRate" placeholder="担保费优惠（只能为数字）">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['insuranceRate'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('number',['insuranceRate'])" >必须是数字</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('max',['insuranceRate'])" >不能大于1</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('min',['insuranceRate'])" >不能小于等于0</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('pattern',['insuranceRate'])" >必须是大于等于0小于等于1的数值</label>
+      </div>
+
+      <div class="form-group" [class.has-error]="!(formModel.get('integralRate').valid||formModel.get('integralRate').untouched)">
+        <label for="integralRate" class="col-sm-2 control-label">积分返还*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="integralRate" class="form-control" id="integralRate" placeholder="积分返还（只能为数字）">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['integralRate'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('max',['integralRate'])" >不能大于1</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('min',['integralRate'])" >不能小于等于0</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('pattern',['integralRate'])" >必须是大于等于0小于等于1的数值</label>
+      </div>
+
+      <div class="form-group" [class.has-error]="!(formModel.get('superService').valid||formModel.get('superService').untouched)">
+        <label   class="col-sm-2 control-label">超级客服*</label>
+        <div class="col-sm-4">
+          否<input type="radio"   checked    name="superService"  value='0' (click)="checkradio(0,1)">
+          是<input type="radio"  name="superService" value="1" (click)="checkradio(1,1)">
+        </div>
+      </div>
+      <div class="form-group" [class.has-error]="!(formModel.get('industryInfo').valid||formModel.get('industryInfo').untouched)">
+        <label   class="col-sm-2 control-label">行业资讯*</label>
+        <div class="col-sm-4" >
+          否<input type="radio" checked  name="industryInfo"  value='0' (click)="checkradio(0,2)">
+          是<input type="radio"   name="industryInfo" value="1" (click)="checkradio(1,2)">
+        </div>
+      </div>
+
+
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+      <button (click)="cancel()" type="button" class="btn btn-default">关闭</button>
+      <button (click)="save()" [disabled]="saveBtn" type="submit" class="btn btn-info pull-right">保存</button>
+
+    </div>
+
+    <!-- /.box-footer -->
+  </form>
+  <div class="overlay" *ngIf="loading">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
+</div>

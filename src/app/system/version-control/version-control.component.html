@@ -1,0 +1,39 @@
+<button (click)="create()">新建</button>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">版本列表</h3>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+          <tr>
+            <th>ID</th>
+            <th>版本名称</th>
+            <th>版本路径</th>
+            <th>版本内容</th>
+            <th>版本号</th>
+            <th>强制更新</th>
+            <th>操作</th>
+          </tr>
+          <tr *ngFor="let i = index; let versionControl of versionControlList">
+            <td>{{versionControl.id}}</td>
+            <td>{{versionControl.versionName}}</td>
+            <td>{{versionControl.versionPath}}</td>
+            <td>{{versionControl.versionContent}}</td>
+            <td>{{versionControl.versionNumber}}</td>
+            <td>
+              <span *ngIf="versionControl.versionForce==0">否</span>
+              <span *ngIf="versionControl.versionForce==1">是</span>
+            </td>
+            <td>
+              <a type="button" (click)="update(versionControl.id)" class="btn btn-warning">修改</a></td>
+          </tr>
+        </table>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+  </div>
+</div>

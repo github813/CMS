@@ -1,0 +1,48 @@
+<!-- 信息删除确认 -->
+<div class="modal fade" id="stackTraceModal">
+  <div class="modal-dialog">
+    <div class="modal-content message_align">
+      <div class="modal-header">
+        <h4 class="modal-title">调用栈</h4>
+      </div>
+      <div class="modal-body">
+        <div class="box">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <table id="logListTable" class="table table-bordered table-striped" style="table-layout:fixed;word-wrap:break-word;">
+              <thead>
+              <tr>
+                <th  class="col-sm-1" >类名</th>
+                <th  class="col-sm-1">方法名</th>
+                <th  class="col-sm-1">文件名</th>
+                <th  class="col-sm-1">行号</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let stackTraceElement of stackTraceElements">
+                <td  class="col-sm-1" >{{stackTraceElement.declaringClass}}</td>
+                <td  class="col-sm-1">{{stackTraceElement.methodName}}</td>
+                <td  class="col-sm-1">{{stackTraceElement.fileName}}</td>
+                <td  class="col-sm-1">{{stackTraceElement.lineNumber}}</td>
+
+              </tr>
+              </tbody>
+              <tfoot>
+              <tr>
+                <th  class="col-sm-1" >类名</th>
+                <th  class="col-sm-1">方法名</th>
+                <th  class="col-sm-1">文件名</th>
+                <th  class="col-sm-1">行号</th>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <!-- /.box-body -->
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+

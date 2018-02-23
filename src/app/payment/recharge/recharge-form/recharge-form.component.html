@@ -1,0 +1,65 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">充值</h3>
+  </div>
+  <!-- /.box-header -->
+  <!-- form start -->
+  <form class="form-horizontal msl" [formGroup]="formModel">
+    <div class="box-body">
+
+      <div class="form-group" [class.has-error]="!(formModel.get('userCode').valid||formModel.get('userCode').untouched)">
+        <label for="userCode" class="col-sm-2 control-label">钱包编号*</label>
+        <div class="col-sm-4">
+          <input formControlName="userCode" class="form-control" id="userCode" placeholder="钱包编号">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('int',['userCode'])" >
+          {{formModel.getError('int',['userCode'])}}
+        </label>
+      </div>
+
+
+      <div class="form-group" [class.has-error]="!(formModel.get('figure').valid||formModel.get('figure').untouched)">
+        <label for="figure" class="col-sm-2 control-label">充值金额*</label>
+        <div class="col-sm-4">
+          <input formControlName="figure" class="form-control" id="figure" placeholder="单位元">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('money',['figure'])" >
+          {{formModel.getError('money',['figure'])}}
+        </label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('max',['figure'])" >不能小于1元</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('min',['figure'])" >不能大于10000000元</label>
+      </div>
+
+      <div class="form-group" [class.has-error]="!(formModel.get('payNo').valid||formModel.get('payNo').untouched)">
+        <label for="payNo" class="col-sm-2 control-label">流水号*</label>
+        <div class="col-sm-4">
+          <input formControlName="payNo" class="form-control" id="payNo" placeholder="流水号">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['payNo'])" >此项必填</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['payNo'])" >不能超过32个字符</label>
+      </div>
+
+      <div class="form-group" [class.has-error]="!(formModel.get('remark').valid||formModel.get('remark').untouched)">
+        <label for="payNo" class="col-sm-2 control-label">备注说明*</label>
+        <div class="col-sm-4">
+          <input formControlName="remark" class="form-control" id="remark" placeholder="备注">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['remark'])" >此项必填</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['remark'])" >不能超过64个字符</label>
+      </div>
+
+
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+      <button (click)="cancel()" type="button" class="btn btn-default">关闭</button>
+      <button (click)="save()" [disabled]="saveBtn" type="submit" class="btn btn-info pull-right">保存</button>
+
+    </div>
+
+    <!-- /.box-footer -->
+  </form>
+  <div class="overlay" *ngIf="loading">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
+</div>

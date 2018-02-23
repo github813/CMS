@@ -1,0 +1,60 @@
+<div style="margin-bottom: 10px;">
+  <a class="btn btn-primary btn-lg " (click)="goback()" >返回</a>
+</div>
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title"><span *ngIf="usertype=='driver' ">司机</span><span *ngIf="usertype=='owner' ">货主</span>信息</h3>
+  </div>
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <tr>
+        <th>账号ID</th>
+        <th>姓名</th>
+        <th>手机号</th>
+        <th>会员等级</th>
+        <th>V值</th>
+        <th>好评</th>
+        <th>差评</th>
+        <th>单数</th>
+      </tr>
+      <tr  >
+        <td>{{userInfo.userId}}</td>
+        <td>{{userInfo.name}}</td>
+        <td>{{userInfo.mobile}}</td>
+        <td *ngIf="usertype=='owner'">{{userInfo.star|gradename:'ownerGradeName'}}</td>
+        <td *ngIf="usertype=='driver'">{{userInfo.star|gradename:'driverGradeName'}}</td>
+        <td>{{userInfo.exp}}</td>
+        <td>{{userInfo.goodTimes}}</td>
+        <td>{{userInfo.badTimes}}</td>
+        <td>{{userInfo.orderCount}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+<div class="box">
+  <div class="box-header">
+    <h3 class="box-title">V值记录</h3><br/>
+    <h5>累计获得{{userInfo.exp}}V值</h5>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <tr>
+        <th>获取时间</th>
+        <th>类型</th>
+        <th>V值</th>
+        <th>备注</th>
+      </tr>
+      <tr *ngFor="let explog of exploglist ;let i = index;">
+        <td>{{explog.modifiedTime?explog.modifiedTime.substring(0,19):""}}</td>
+        <td>{{explog.expName}}</td>
+        <td>{{explog.expValue>0?"+"+explog.expValue:explog.expValue}}</td>
+        <td>{{explog.remark}}</td>
+      </tr>
+    </table>
+  </div>
+  <!-- /.box-body -->
+  <app-pagination [currentPage]="pageNum" [pageSize]="pageSize" [totalNum]="totalNum" [totalPages]="totalPages" (pageChange)="changePageNum($event)"></app-pagination>
+</div>

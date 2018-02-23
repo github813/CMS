@@ -1,0 +1,18 @@
+<div class="box-footer clearfix">
+  <div class="simple-page pull-right">
+    <button (click)="goPage()" class="btn btn-info btn-xs" >跳转</button>
+    <input [formControl]="pageInput">
+  </div>
+  <ul class="pagination pagination-sm no-margin pull-right">
+    <li *ngIf="isShowBegin"><a (click)="begin()" href="javascript:;">首页</a></li>
+    <li *ngIf="isShowPrev"><a (click)="prev()" href="javascript:;">上一页</a></li>
+    <li *ngFor="let i of arrPage">
+      <a (click)="selectPage(i)" [class.active]="i == currentPage" href="javascript:;">{{i}}</a>
+    </li>
+    <li *ngIf="isShowNext"><a (click)="next()" href="javascript:;">下一页</a></li>
+    <li *ngIf="isShowEnd"><a (click)="end()" href="javascript:;">末页</a></li>
+  </ul>
+  <div class="simple-page pull-right">
+    <span>总共{{page?.totalNum}}条</span>
+  </div>
+</div>

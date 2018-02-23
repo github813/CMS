@@ -1,0 +1,107 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">{{title}}</h3>
+  </div>
+  <!-- /.box-header -->
+  <!-- form start -->
+  <form class="form-horizontal msl" [formGroup]="formModel">
+    <div class="box-body">
+
+      <div class="form-group" [class.has-error]="!(formModel.get('name').valid||formModel.get('name').untouched)">
+        <label for="name" class="col-sm-2 control-label">姓名*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="name" class="form-control" id="name" placeholder="姓名">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['name'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['name'])" >不能超过12个字符</label>
+      </div>
+
+
+      <div class="form-group" [class.has-error]="!(formModel.get('uname').valid||formModel.get('uname').untouched)">
+        <label for="uname" class="col-sm-2 control-label">用户名*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="uname" class="form-control" id="uname" placeholder="用户名">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['uname'])" >此项必填</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['uname'])" >不能超过16个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('minlength',['uname'])" >不能少于6个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('msg',['uname'])">
+          {{formModel.getError('msg',['uname'])}}
+        </label>
+      </div>
+
+
+      <div class="form-group" [class.has-error]="!(formModel.get('pwd').valid||formModel.get('pwd').untouched)">
+        <label for="pwd" class="col-sm-2 control-label">密码*</label>
+        <div class="col-sm-4">
+          <input type="password" formControlName="pwd"  class="form-control" id="pwd" placeholder="密码">
+        </div>
+        <label class="col-sm-6 help-block">格式为6到24个字符</label>
+      </div>
+
+
+      <div class="form-group" [class.has-error]="!(formModel.get('mobile').valid||formModel.get('mobile').untouched)" >
+        <label for="mobile" class="col-sm-2 control-label">手机号*</label>
+
+        <div class="col-sm-4">
+          <input type="text" formControlName="mobile" class="form-control" id="mobile" placeholder="手机号">
+        </div>
+        <label class="col-sm-6 help-block">{{formModel.getError('mobile',['mobile'])}}</label>
+      </div>
+
+
+      <div class="form-group" [class.has-error]="!(formModel.get('roleId').valid||formModel.get('roleId').untouched)">
+        <label for="roleId" class="col-sm-2 control-label">角色*</label>
+
+        <div class="col-sm-4 input-group">
+          <p class="form-control-static msl">{{roleName}}</p>
+          <input type="hidden" formControlName="roleId" class="form-control" id="roleId" placeholder="角色">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-info" (click)="openRoleSelect()">选择</button>
+          </span>
+        </div>
+        <label class="col-sm-6 help-block">请选择角色</label>
+      </div>
+
+
+      <div class="form-group" [class.has-error]="!(formModel.get('department').valid||formModel.get('department').untouched)">
+        <label for="department" class="col-sm-2 control-label">部门*</label>
+
+        <div class="col-sm-4 input-group ">
+          <p class="form-control-static msl">{{departmentName}}</p>
+          <input type="hidden" formControlName="department" class="form-control" id="department" placeholder="部门">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-info" (click)="openDepartSelect()">选择</button>
+          </span>
+        </div>
+        <label class="col-sm-6 help-block">请选部门</label>
+      </div>
+
+
+      <div class="form-group" [class.has-error]="!(formModel.get('email').valid||formModel.get('email').pristine)">
+        <label for="email" class="col-sm-2 control-label">邮箱</label>
+
+        <div class="col-sm-4">
+          <input type="text" formControlName="email" class="form-control" id="email" placeholder="邮箱">
+        </div>
+        <label class="col-sm-6 help-block">格式错误</label>
+      </div>
+
+
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+      <button (click)="cancel()" type="button" class="btn btn-default">关闭</button>
+      <button (click)="save()" [disabled]="saveBtn" type="submit" class="btn btn-info pull-right">保存</button>
+
+    </div>
+
+    <!-- /.box-footer -->
+  </form>
+  <div class="overlay" *ngIf="loading">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
+</div>
+<app-role-select [modalStatus]="roleModalStatus" (roleChange)="roleSelect($event)"></app-role-select>
+<app-depart-select [modalStatus]="departModelStatus" (departChange)="departSelect($event)"></app-depart-select>
+

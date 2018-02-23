@@ -1,0 +1,13 @@
+<!-- 信息删除确认 -->
+<div class="modal fade" id="resultPopupModal">
+  <div class="modal-dialog">
+    <div class="modal-content message_align">
+      <div class="modal-header">
+        <h4 class="modal-title">提示信息</h4>
+      </div>
+      <div class="modal-body">
+        <p [class.alert-error]="result?.code != 0">{{result?.msg}}</p>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

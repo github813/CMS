@@ -1,0 +1,46 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <ul class="nav nav-tabs">
+      <li role="presentation"><a (click)="showUserDetail(id)">基本信息</a></li>
+      <li role="presentation"><a (click)="showOrderDetail(id)">货单信息</a></li>
+      <li role="presentation" class="active"><a (click)="showEvaluateDetail(id)">评价信息</a></li>
+      <li role="presentation"><a (click)="showAddressDetail(id)">地址信息</a></li>
+      <li role="presentation"><a (click)="showBlackDetail(id)">黑名单信息</a></li>
+    </ul>
+  </div>
+  <!-- /.box-header -->
+  <!-- form start -->
+  <div class="box">
+    <div class="box-header">
+
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body table-responsive no-padding">
+      <table class="table table-hover">
+        <tr>
+          <th>评价类型</th>
+          <th>评价内容</th>
+          <th>评价人</th>
+          <th>接单编号</th>
+        </tr>
+        <tr *ngFor="let evaluateDTO of evaluateDTOList ;let i = index;">
+          <td>{{evaluateDTO.type}}</td>
+          <td>
+            <div>标签：<span *ngFor="let labelDTO of evaluateDTO.evaluateLabelDTOList ;let j = index;">{{labelDTO.label}} </span></div>
+            <div>有话说：{{evaluateDTO.comment}}</div>
+          </td>
+          <td>{{evaluateDTO.fromName}}</td>
+          <td>
+            {{evaluateDTO.orderNo}}
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!-- /.box-body -->
+    <app-pagination [currentPage]="pageNum" [pageSize]="pageSize" [totalNum]="totalNum" [totalPages]="totalPages" (pageChange)="changePageNum($event)"></app-pagination>
+  </div>
+  <!-- /.box -->
+
+
+
+</div>

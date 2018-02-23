@@ -1,0 +1,46 @@
+.audit-process-div{
+  border-bottom: 1px solid #f4f4f4;
+}
+.audit-process{
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.audit-process>li{
+  height: 36px;
+  float: left;
+  position: relative;
+  display: block;
+  margin: 5px 10px;
+  padding: 0 10px;
+  background-color: #eeeeee;
+  line-height: 35px;
+}
+.audit-process .node:after{
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  content: " ";
+  right: 0px;
+  top:0px;
+  margin-right:-18px;
+  display: block;
+  border: 18px solid transparent;
+  border-left-color: #eeeeee;
+  border-right-width: 0;
+
+}
+.audit-process .ing{
+  color: #ffffff;
+  background-color: #00c0ef;
+}
+.audit-process .ing:after{
+  border-left-color: #00c0ef;
+}
+.audit-process .complete{
+  color: #ffffff;
+  background-color: #00a65a;
+}
+.audit-process .complete:after{
+  border-left-color: #00a65a;
+}

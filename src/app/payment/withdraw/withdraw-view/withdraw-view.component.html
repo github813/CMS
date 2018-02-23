@@ -1,0 +1,123 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">提现详情</h3>
+  </div>
+  <div class="box-body form-horizontal ">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="col-sm-3 control-label">钱包账号:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{withdrawView?.userCode}}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-3 control-label">商户单号:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{withdrawView?.tradeNo}}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-3 control-label">外部单号:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{withdrawView?.payNo}}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-3 control-label">提现金额:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{withdrawView?.figure}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">提现备注:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{withdrawView?.remark}}</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="col-sm-3 control-label">提现状态:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{withdrawView?.status|transform:"withdrawStatus"}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">完成时间:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{withdrawView?.transferTime}}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-3 control-label">创建时间:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{withdrawView?.createTime}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">修改时间:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{withdrawView?.modifiedTime}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box-body form-horizontal " *ngIf="queryView">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="col-sm-3 control-label">账号名称:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{settlementQuery?.accountName}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">银行卡号:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{settlementQuery?.accountNumber}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">账户类型:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{settlementQuery?.accountType|transform:"accountType"}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="col-sm-3 control-label">提现金额:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{settlementQuery?.amount/100}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">提现状态:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{settlementQuery?.status|transform:"cpcnSettlementStatus"}}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-3 control-label">备注说明:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{settlementQuery?.remark}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="box-footer">
+    <button (click)="cancel()" type="button" class="btn btn-default">关闭</button>
+    <button (click)="sync()" *ngIf="syncBtn" type="button" class="btn btn-info pull-right">同步</button>
+    <button (click)="sendBack()" *ngIf="sendBackBtn" type="button" class="btn btn-info pull-right margin-r-5">退汇</button>
+    <button (click)="query()" type="button" class="btn btn-default pull-right margin-r-5">查询中金</button>
+  </div>
+  <div class="overlay" *ngIf="loading">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
+</div>

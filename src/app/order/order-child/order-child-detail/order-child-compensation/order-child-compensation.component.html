@@ -1,0 +1,41 @@
+<!-- 信息删除确认 -->
+<div class="modal fade" id="orderChildCompensationModal">
+  <div class="modal-dialog">
+    <div class="modal-content message_align">
+      <div class="modal-header">
+        <h4 class="modal-title">扣款项列表</h4>
+      </div>
+      <div class="modal-body">
+        <div class="box">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <table id="logListTable" class="table table-bordered table-striped" style="table-layout:fixed;word-wrap:break-word;">
+              <thead>
+              <tr>
+                <th  class="col-sm-1" >id</th>
+                <th  class="col-sm-1">订单号</th>
+                <th  class="col-sm-1">扣款项</th>
+                <th  class="col-sm-1">金额</th>
+                <th  class="col-sm-1">创建时间</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let orderChildCompensation of orderChildCompensationList">
+                <td  class="col-sm-1" >{{orderChildCompensation.id}}</td>
+                <td  class="col-sm-1">{{orderChildCompensation.childNo}}</td>
+                <td  class="col-sm-1">{{orderChildCompensation.name}}</td>
+                <td  class="col-sm-1">{{orderChildCompensation.value | number: '.2'}}</td>
+                <td  class="col-sm-1">{{orderChildCompensation.createTime}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- /.box-body -->
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+

@@ -1,0 +1,45 @@
+<!--<div class="box" [style.display]="isShow">-->
+  <!--<div class="box-header">-->
+    <!--<div>-->
+      <!--<a class="btn btn-success btn-sm " (click)="create()">创建</a>-->
+    <!--</div>-->
+
+    <!--<div class="box-tools">-->
+      <!--<div class="input-group input-group-sm" style="width: 150px;">-->
+        <!--<input type="text" [formControl]="nameFilter" name="table_search" class="form-control pull-right" placeholder="查询">-->
+
+        <!--<div class="input-group-btn">-->
+          <!--<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--&lt;!&ndash; /.box-header &ndash;&gt;-->
+  <!--<div class="box-body table-responsive no-padding">-->
+    <!--<table class="table table-hover">-->
+      <!--<tr>-->
+        <!--<th>#</th>-->
+        <!--<th>单号</th>-->
+        <!--<th>姓名</th>-->
+        <!--<th>货物名称</th>-->
+        <!--<th>货物数量</th>-->
+        <!--<th>操作</th>-->
+      <!--</tr>-->
+      <!--<tr *ngFor="let order of orders | testFilter:'goodsName':keyWork;let i = index;">-->
+        <!--<td>{{order.userId}}</td>-->
+        <!--<td>{{order.orderNo}}</td>-->
+        <!--<td>{{order.name}}</td>-->
+        <!--<td>{{order.goodsName}}</td>-->
+        <!--<td>{{order.goodsAmount | number:'.1-4'}}</td>-->
+        <!--<td>-->
+          <!--<a class="btn btn-warning btn-xs" (click)="update(order)">修改</a>-->
+          <!--<a class="btn btn-danger btn-xs" (click)="delete()">删除</a>-->
+        <!--</td>-->
+      <!--</tr>-->
+    <!--</table>-->
+  <!--</div>-->
+  <!--&lt;!&ndash; /.box-body &ndash;&gt;-->
+  <!--<app-pagination [pageSize]="5" [totalNum]="20" (pageChange)="findPage($event)"></app-pagination>-->
+<!--</div>-->
+<!--&lt;!&ndash; /.box &ndash;&gt;-->
+

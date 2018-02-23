@@ -1,0 +1,237 @@
+<div>
+  <button type="button" class="btn btn-primary btn-lg" (click)="goBack()">返回</button>
+</div>
+<div class="box">
+  <div class="box-body">
+
+    <style>
+
+      table { border:1px solid black }
+      table tr th{ border:1px solid black; text-align: center }
+      table tr td { border:1px solid black }
+
+    </style>
+    <table class="table table-bordered table-striped" >
+      <tr >
+        <th colspan="2" style="text-align: center">基本信息</th>
+        <th colspan="2" style="text-align: center">发货信息</th>
+        <th colspan="2" style="text-align: center">收货信息</th>
+        <th colspan="2" style="text-align: center">司机车辆信息</th>
+        <th colspan="2" style="text-align: center">评价赔偿信息</th>
+      </tr>
+      <tr>
+        <th>订单号</th><td>{{orderChild.childNo}}</td>
+        <th>发货皮重</th> <td>{{orderChild.sendTare | number: '.2'}}</td>
+        <th>收货皮重</th> <td>{{orderChild.receiveTare | number: '.2'}}</td>
+        <th>司机id</th> <td>{{orderChild.driverId}}</td>
+        <th>司机评价</th> <td>{{orderChild.driverEvaluate}}</td>
+      </tr>
+      <tr>
+        <th>数量(吨)</th><td>{{orderChild.capacity | number: '.2'}}</td>
+        <th>发货毛重(吨)</th><td>{{orderChild.sendRough | number: '.2'}}</td>
+        <th>收货毛重(吨)</th> <td>{{orderChild.receiveRough | number: '.2'}}</td>
+        <th>司机姓名</th><td>{{orderChild.driverName}}</td>
+        <th>货主评价</th><td>{{orderChild.ownerEvaluate}}</td>
+
+      </tr>
+      <tr>
+        <th>运费(元)</th><td>{{orderChild.freight | number: '.2'}}</td>
+        <th>发货净重(吨)</th> <td>{{orderChild.sendNet | number: '.2'}}</td>
+        <th>收货净重(吨)</th> <td>{{orderChild.receiveNet | number: '.2'}}</td>
+        <th>司机手机号</th><td>{{orderChild.driverPhone}}</td>
+        <th>取消原因</th><td>{{orderChild.cancelReason}}</td>
+
+      </tr>
+      <tr>
+        <th>司机保证金(元)</th><td>{{orderChild.deposit | number: '.2'}}</td>
+        <th>发货人装车备注</th><td>{{orderChild.ownerRemark}}</td>
+        <th>卸货时间</th><td>{{orderChild.unloadTime}}</td>
+        <th>型号</th> <td>{{orderChild.truckModel}}</td>
+        <th>赔偿金(元)</th><td>{{orderChild.compensationFee | number: '.2'}}</td>
+
+      </tr>
+      <tr>
+        <th>货物担保费(元)</th><td>{{orderChild.insuranceFee | number: '.2'}}</td>
+        <th>发货人装车备注图片</th><td><a (click)="showImage(1)">点击查看</a></td>
+
+        <th>货主卸货备注</th><td>{{orderChild.unloadRemark}}</td>
+        <th>载重(吨)</th> <td>{{orderChild.truckLoad | number: '.2'}}</td>
+        <th>赔偿备注说明</th><td>{{orderChild.compensationRemark}}</td>
+
+      </tr>
+      <tr>
+        <th>状态</th><td>{{orderChild.status | orderChildStatus}}</td>
+        <th>司机装车备注</th> <td>{{orderChild.driverRemark}}</td>
+        <th>货主卸货备注图片</th><td><a (click)="showImage(3)">点击查看</a></td>
+        <th>车辆id</th><td>{{orderChild.truckId}}</td>
+        <th>扣款项</th><td><a (click)="showCompensationList()">点击查看</a></td>
+
+      </tr>
+      <tr>
+        <th>支付时间</th><td>{{orderChild.payTime}}</td>
+        <th>司机装车备注图片</th> <td><a (click)="showImage(2)">点击查看</a></td>
+
+        <th>到达目的地时间</th><td>{{orderChild.receiveTime}}</td>
+        <th>车牌号</th><td>{{orderChild.truckNo}}</td>
+        <td></td><td></td>
+
+      </tr>
+      <tr>
+        <th>抢单之前货物数量(吨)</th><td>{{orderChild.remainAmount | number: '.2'}}</td>
+        <th>到达货源地时间</th> <td>{{orderChild.arriveTime}}</td>
+        <td></td><td></td>
+        <th>品牌</th><td>{{orderChild.truckBrand}}</td>
+        <td></td><td></td>
+
+      </tr>
+      <tr>
+        <th>最晚装货时间</th><td>{{orderChild.latestArrivalTime}}</td>
+        <th>装货时间</th><td>{{orderChild.loadTime}}</td>
+        <td></td><td></td>
+        <td></td><td></td>
+        <td></td><td></td>
+      </tr>
+      <tr>
+        <th>创建时间</th><td>{{orderChild.createTime}}</td>
+        <td></td><td></td>
+        <td></td><td></td>
+        <td></td><td></td>
+        <th>合计</th><td>{{orderChild.freight + orderChild.compensationFee}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div>
+  <div class="btn-sm btn-primary" style="margin: auto" align="center" (click)="showOrderInfo()" >点击查看货源信息</div>
+  <div class="box" [hidden]="orderInfo == null">
+    <div class="box-body">
+      <table class="table table-bordered table-striped">
+        <tr>
+          <th>货源号</th>
+          <th>货主名</th>
+          <th>货主手机号</th>
+          <th>货物价值(元/吨)</th>
+          <th>运费单价(元)</th>
+          <th>是否担保</th>
+          <th>最晚到达时间</th>
+          <th>发货人</th>
+          <th>收货人</th>
+          <th>发货地址</th>
+          <th>收货地址</th>
+        </tr>
+        <tr>
+          <td>{{orderChild.orderNo}}</td>
+          <td>{{orderInfo?.name}}</td>
+          <td>{{orderInfo?.phone}}</td>
+          <td>{{orderInfo?.goodsPrice | number: '.2'}}</td>
+          <td>{{orderInfo?.freightPrice | number: '.2'}}</td>
+          <td>
+            <span *ngIf="orderInfo?.insurance == 0">否</span>
+            <span *ngIf="orderInfo?.insurance == 1">是</span>
+          </td>
+          <td>{{orderInfo?.latestArrivalTime}}</td>
+          <td>{{orderInfo?.sendName}}:{{orderInfo?.sendPhone}}</td>
+          <td>{{orderInfo?.receiveName}}:{{orderInfo?.receivePhone}}</td>
+          <td>{{orderInfo?.sendProvince}}{{orderInfo?.sendCity}}{{orderInfo?.sendCounty}}{{orderInfo?.sendTown}}{{orderInfo?.sendAddress}}</td>
+          <td>{{orderInfo?.receiveProvince}}{{orderInfo?.receiveCity}}{{orderInfo?.receiveCounty}}{{orderInfo?.receiveTown}}{{orderInfo?.receiveAddress}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <br>
+
+
+  <div class="btn-sm btn-primary" align="center" (click)="showUser()">点击查看接单人信息</div>
+  <div class="box" [hidden]="userInfo == null">
+    <div class="box-body">
+      <table class="table table-bordered table-striped">
+        <tr>
+          <th>userId</th>
+          <th>姓名</th>
+          <th>手机号</th>
+          <th>状态</th>
+          <th>实名认证</th>
+          <th>驾驶证认证</th>
+          <th>性别</th>
+          <th>认证时间</th>
+        </tr>
+        <tr>
+          <td>{{orderChild.userId}}</td>
+          <td>{{userInfo?.name}}</td>
+          <td>{{userInfo?.mobile}}</td>
+          <td>{{userInfo?.status | driverStatus}}</td>
+          <td>
+            <span *ngIf="userInfo?.authed == 0">未提交</span>
+            <span *ngIf="userInfo?.authed == 1">认证失败</span>
+            <span *ngIf="userInfo?.authed == 2">认证通过</span>
+            <span *ngIf="userInfo?.authed == 3">审核中</span>
+          </td>
+          <td>
+            <span *ngIf="userInfo?.licenceAuth == 0">未认证</span>
+            <span *ngIf="userInfo?.licenceAuth == 1">认证失败</span>
+            <span *ngIf="userInfo?.licenceAuth == 2">认证通过</span>
+          </td>
+          <td>
+            <span *ngIf="userInfo?.sex == 1">男</span>
+            <span *ngIf="userInfo?.sex == 2">女</span>
+          </td>
+          <td>{{userInfo?.licenseTime}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="btn-sm btn-primary" align="center " (click)="showTruckOwner()">点击查看车主信息</div>
+  <div class="box" [hidden]="truckOwner == null">
+    <div class="box-body">
+      <table class="table table-bordered table-striped">
+        <tr>
+          <th>车主id</th>
+          <th>姓名</th>
+          <th>手机号</th>
+          <th>状态</th>
+          <th>实名认证</th>
+          <th>驾驶证认证</th>
+          <th>性别</th>
+          <th>认证时间</th>
+        </tr>
+        <tr>
+          <td>{{orderChild.truckOwnerId}}</td>
+          <td>{{truckOwner?.name}}</td>
+          <td>{{truckOwner?.mobile}}</td>
+          <td>{{truckOwner?.status}}</td>
+          <td>
+            <span *ngIf="truckOwner?.authed == 0">未提交</span>
+            <span *ngIf="truckOwner?.authed == 1">认证失败</span>
+            <span *ngIf="truckOwner?.authed == 2">认证通过</span>
+            <span *ngIf="truckOwner?.authed == 3">审核中</span>
+          </td>
+          <td>
+            <span *ngIf="truckOwner?.licenceAuth == 0">未认证</span>
+            <span *ngIf="truckOwner?.licenceAuth == 1">认证失败</span>
+            <span *ngIf="truckOwner?.licenceAuth == 2">认证通过</span>
+          </td>
+          <td>
+            <span *ngIf="truckOwner?.sex == 1">男</span>
+            <span *ngIf="truckOwner?.sex == 2">女</span>
+          </td>
+          <td>{{truckOwner?.licenseTime}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <br>
+  <div class="btn-sm btn-primary" align="center " (click)="showOrderTrade(orderChild.childNo)">点击查看交易明细</div>
+</div>
+
+<app-image-carousel [imageCarouse]="imageCarouse"></app-image-carousel>
+<app-result-popup-window [result]="result" [status]="resultMsgStatus"></app-result-popup-window>
+<app-order-child-compensation [orderChildCompensationList]="orderChildCompensationList"></app-order-child-compensation>
+
+
+
+

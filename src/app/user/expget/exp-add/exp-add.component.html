@@ -1,0 +1,102 @@
+
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">{{title}}</h3>
+  </div>
+  <form class="form-horizontal msl" [formGroup]="formModel">
+    <div class="box-body">
+
+      <div class="form-group" [class.has-error]="!(formModel.get('expCode').valid||formModel.get('expCode').untouched)">
+        <label for="expCode" class="col-sm-2 control-label">成长值编码*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="expCode" class="form-control" id="expCode" placeholder="成长值编码">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['expCode'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['expCode'])" >不能超过12个字符</label>
+      </div>
+
+      <div class="form-group" [class.has-error]="!(formModel.get('expName').valid||formModel.get('expName').untouched)">
+        <label for="expName" class="col-sm-2 control-label">成长值名称*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="expName" class="form-control" id="expName" placeholder="成长值名称">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['expName'])" >此项必填</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['expName'])" >不能超过8个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('minlength',['expName'])" >不能少于2个字符</label>
+      </div>
+
+
+      <div class="form-group" [class.has-error]="!(formModel.get('hasLimit').valid||formModel.get('hasLimit').untouched)">
+        <label class="col-sm-2 control-label">是否有限制*</label>
+        <div class="col-sm-4">
+          否<input type="radio" formControlName="hasLimit" name="hasLimit" checked value='0' (click)="limitNo()">
+          是<input type="radio" formControlName="hasLimit" name="hasLimit" value="1" (click)="limitYes()">
+        </div>
+      </div>
+
+      <div class="form-group"  [ngStyle]="{display: cvalue}" [class.has-error]="!(formModel.get('expLimitType').valid||formModel.get('expLimitType').untouched)" >
+        <label class="col-sm-2 control-label">限制时间段*</label>
+        <div class="col-sm-4">
+          <select formControlName="expLimitType">
+            <option  value="F">全部F</option>
+            <option  value="Y">年Y</option>
+            <option  value="M">月M</option>
+            <option  value="D">日D</option>
+
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group"  [class.has-error]="!(formModel.get('performTimes').valid||formModel.get('performTimes').untouched)">
+        <label for="performTimes" class="col-sm-2 control-label">完成次数*</label>
+        <div class="col-sm-4 input-group">
+          <input type="text" formControlName="performTimes" class="form-control" id="performTimes" placeholder="完成次数">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['performTimes'])">次数为必填项</label>
+      </div>
+      <div class="form-group" [class.has-error]="!(formModel.get('expLimitValue').valid||formModel.get('expLimitValue').untouched)">
+        <label for="expLimitValue" class="col-sm-2 control-label">最多可获得的V值*</label>
+        <div class="col-sm-4 input-group ">
+          <input type="text" formControlName="expLimitValue" class="form-control" id="expLimitValue" placeholder="最多可获得的V值">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['expLimitValue'])">V值为必填项</label>
+      </div>
+
+      <div class="form-group" [class.has-error]="!(formModel.get('isFixedValue').valid||formModel.get('isFixedValue').untouched)">
+        <label class="col-sm-2 control-label">奖励是否是固定值*</label>
+        <div class="col-sm-4">
+          否
+          <input type="radio" formControlName="isFixedValue" name="isFixedValue" checked value="0" (click)="fixedNo()">
+          是
+          <input type="radio" formControlName="isFixedValue" name="isFixedValue" value="1" (click)="fixedYes()">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['isFixedValue'])">奖励是否是固定值必选</label>
+      </div>
+
+      <div class="form-group"  [ngStyle]="{display: fvalue}" [class.has-error]="!(formModel.get('expValue').valid||formModel.get('expValue').pristine)">
+        <label for="expValue" class="col-sm-2 control-label">固定值*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="expValue" class="form-control" id="expValue" placeholder="固定值">
+        </div>
+      <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['expValue'])">V值为必填项</label>
+      </div>
+      <div class="form-group" [class.has-error]="!(formModel.get('description').valid||formModel.get('description').pristine)">
+        <label for="description" class="col-sm-2 control-label">描述信息*</label>
+        <textarea  class="form-control col-sm-6" style="width: 500px;height: 100px;max-width: 500px;max-height: 100px;"
+         formcontrolName="description" id="description" rows="3"
+        ></textarea> 
+      </div>
+      <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['description'])" >描述信息不能为空</label>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+      <button (click)="cancel()" type="button" class="btn btn-default">关闭</button>
+      <button (click)="save()" [disabled]="saveBtn" type="submit" class="btn btn-info pull-right">保存</button>
+    </div>
+
+    <!-- /.box-footer -->
+  </form>
+  <div class="overlay" *ngIf="loading">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
+</div>

@@ -1,0 +1,152 @@
+
+<style>
+
+  table { border:1px solid black }
+  table tr th{ border:1px solid black; text-align: center }
+  table tr td { border:1px solid black }
+
+</style>
+<div>
+  <button type="button" class="btn btn-primary btn-lg" (click)="goBack()">返回</button>
+</div>
+<div class="box">
+  <div class="box-body">
+    <table class="table table-bordered table-striped">
+      <th colspan="4" style="text-align: center" >主要信息</th><th colspan="2" style="text-align: center">收发货信息</th>
+      <tr>
+        <th>货主id</th> <td>{{orderInfo.userId}}</td>
+        <th>结束时间</th><td>{{orderInfo.endTime}}</td>
+        <th>发货人id</th><td>{{orderInfo.sendId}}</td>
+      </tr>
+      <tr>
+        <th>货主姓名</th> <td>{{orderInfo.name}}</td>
+        <th>最晚到达时间</th><td>{{orderInfo.latestArrivalTime}}</td>
+        <th>发货人姓名</th><td>{{orderInfo.sendName}}</td>
+      </tr>
+      <tr>
+        <th>手机号</th><td>{{orderInfo.phone}}</td>
+        <th>状态</th><td>{{orderInfo.orderStatus | orderInfo}}</td>
+        <th>发货人手机号</th><td>{{orderInfo.sendPhone}}</td>
+      </tr>
+      <tr>
+        <th>货源号</th> <td>{{orderInfo.orderNo}}</td>
+        <th>发布时间</th><td>{{orderInfo.publishTime}}</td>
+        <th>发货公司</th><td>{{orderInfo.sendCompany}}</td>
+      </tr>
+      <tr>
+        <th>货物名</th><td>{{orderInfo.goodsName}}</td>
+        <th>运输距离(km)</th><td>{{orderInfo.distance | number: '.2'}}</td>
+        <th>发货地址</th><td>{{orderInfo.sendProvince}}{{orderInfo.sendCity}}{{orderInfo.sendCounty}}{{orderInfo.sendTown}}{{orderInfo.sendAddress}}</td>
+      </tr>
+      <tr>
+        <th>货物总量(吨)</th> <td>{{orderInfo.goodsAmount | number: '.2'}}</td>
+        <th>运费价格(元/吨)</th><td>{{orderInfo.freightPrice | number: '.2'}}</td>
+        <th>收货人id</th><td>{{orderInfo.receiveId}}</td>
+      </tr>
+      <tr>
+        <th>货物剩余量(吨)</th> <td>{{orderInfo.goodsResidue | number: '.2'}}</td>
+        <th>标签</th><td>{{orderInfo.labels}}</td>
+        <th>收货人姓名</th><td>{{orderInfo.receiveName}}</td>
+      </tr>
+      <tr>
+        <th>货物价值(元/吨)</th><td>{{orderInfo.goodsPrice | number: '.2'}}</td>
+        <th>取消原因</th><td>{{orderInfo.cancelReason}}</td>
+        <th>收货人手机号</th><td>{{orderInfo.receivePhone}}</td>
+      </tr>
+      <tr>
+        <th>是否有担保</th><td><span *ngIf="orderInfo?.insurance == 0">否</span><span *ngIf="orderInfo?.insurance == 1">是</span></td>
+        <th>备注</th><td>{{orderInfo.remark}}</td>
+        <th>收货公司</th><td>{{orderInfo.receiveCompany}}</td>
+      </tr>
+      <tr>
+        <th>担保金额(元)</th><td>{{orderInfo.insuranceFee | number: '.2'}}</td>
+        <th>创建时间</th><td>{{orderInfo.createTime}}</td>
+        <th>收货地址</th><td>{{orderInfo.receiveProvince}}{{orderInfo.receiveCity}}{{orderInfo.receiveCounty}}{{orderInfo.receiveTown}}{{orderInfo.receiveAddress}}</td>
+      </tr>
+      <tr>
+        <th>货主押金(元)</th><td>{{orderInfo.ownerDeposit | number: '.2'}}</td>
+        <th>最后修改时间</th><td>{{orderInfo.modifiedTime}}</td>
+        <td></td><td></td>
+      </tr>
+    </table>
+
+      <span>收发货信息</span>
+      <table class="table table-bordered table-striped">
+        <tr>
+          <th>地址类型</th>
+          <th>单位</th>
+          <th>省</th>
+          <th>市</th>
+          <th>县（区）</th>
+          <th>乡（镇）</th>
+          <th>详细地址</th>
+          <th>主联系人</th>
+          <th>联系电话</th>
+          <th>操作</th>
+        </tr>
+        <tr>
+          <th>发货信息</th>
+          <td>{{orderInfo.sendCompany}}</td>
+          <td>{{orderInfo.sendProvince}}</td>
+          <td>{{orderInfo.sendCity}}</td>
+          <td>{{orderInfo.sendCounty}}</td>
+          <td>{{orderInfo.sendTown}}</td>
+          <td>{{orderInfo.sendAddress}}</td>
+          <td>{{orderInfo.sendName}}</td>
+          <td>{{orderInfo.sendPhone}}</td>
+          <td class="color" data-toggle="modal" data-target="#myModal" (click)="see(orderInfo.sendAddressId,1)">查看更多联系人</td>
+        </tr>
+        <tr>
+          <th>收货信息</th>
+          <td>{{orderInfo.receiveCompany}}</td>
+          <td>{{orderInfo.receiveProvince}}</td>
+          <td>{{orderInfo.receiveCity}}</td>
+          <td>{{orderInfo.receiveCounty}}</td>
+          <td>{{orderInfo.receiveTown}}</td>
+          <td>{{orderInfo.receiveAddress}}</td>
+          <td>{{orderInfo.receiveName}}</td>
+          <td>{{orderInfo.receivePhone}}</td>
+          <td><span class="color" data-toggle="modal" data-target="#myModal" (click)="see(orderInfo.receiveAddressId,2)">查看更多联系人</span>  <span class="color" data-toggle="modal" data-target="#myModal" (click)="see(orderInfo.receiveAddressId,3)">查看质检员</span> </td>
+        </tr>
+      </table>
+  </div>
+  <br>
+  <div class="btn-sm btn-primary" align="center " (click)="showOrderTrade(orderInfo.orderNo)">点击查看交易明细</div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          联系人信息
+        </h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered table-striped">
+          <tr>
+            <th>姓名</th>
+            <th>电话号</th>
+            <th *ngIf="type!=3">是否主联系人</th>
+          </tr>
+          <tr *ngFor="let info of ownerStaffList">
+            <th>{{info.name}}</th>
+            <th>{{info.phone}}</th>
+            <th *ngIf="info.type!=3&&info.main == 1">是</th>
+            <th *ngIf="info.type!=3&&info.main == 0">否</th>
+          </tr>
+          </table>
+      </div>
+      <div class="modal-footer">
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<!--userCode用来跳转到交易页面-->
+<!--<tr>-->
+  <!--<td>{{orderInfo.userCode}}</td>-->
+<!--</tr>-->

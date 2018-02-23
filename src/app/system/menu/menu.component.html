@@ -1,0 +1,120 @@
+<div class="row">
+  <div class="col-md-6">
+
+    <div class="box">
+      <div class="box-header">
+        <div>
+          <a class="btn btn-success btn-sm " (click)="beginCreate()">添加菜单</a>
+          <a class="btn btn-success btn-sm " (click)="cancelSelected()">取消选择</a>
+        </div>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <ul id="menuZTree" class="ztree"></ul>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-6">
+
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">{{actionModeTitle}}</h3>
+      </div>
+      <!-- /.box-header -->
+      <!-- form start -->
+      <form class=" msl" [formGroup]="formModel">
+        <div class="box-body">
+          <div class="form-group">
+            <label>父节点</label>
+            <input type="text" formControlName="pid" class="form-control" >
+          </div>
+
+          <div class="form-group" [class.has-error]="!(formModel.get('title').valid||formModel.get('title').untouched)">
+            <label>标题</label>
+            <input type="text" formControlName="title" class="form-control" >
+            <label class="help-block" [class.hidden]="!formModel.hasError('required',['title'])" >不能为空</label>
+            <label class="help-block" [class.hidden]="!formModel.hasError('maxlength',['title'])" >不能超过16个字符</label>
+          </div>
+
+
+          <div class="form-group" [class.has-error]="!(formModel.get('type').valid||formModel.get('type').untouched)">
+            <label>类型</label>
+            <select class="form-control" formControlName="type" >
+              <option value="">请选择</option>
+              <option value="1">菜单</option>
+              <option value="2">接口</option>
+            </select>
+            <label class="help-block" [class.hidden]="!formModel.hasError('required',['type'])" >此项必填</label>
+          </div>
+
+
+          <div class="form-group" [class.has-error]="!(formModel.get('status').valid||formModel.get('status').untouched)">
+            <label>状态</label>
+            <select class="form-control" formControlName="status" >
+              <option value="1">可用</option>
+              <option value="0">禁用</option>
+            </select>
+            <label class="help-block" [class.hidden]="!formModel.hasError('required',['status'])" >此项必填</label>
+          </div>
+
+
+          <div class="form-group" [class.has-error]="!(formModel.get('link').valid||formModel.get('link').untouched)" >
+            <label>连接地址</label>
+            <input type="text" formControlName="link" class="form-control">
+            <label class="help-block" [class.hidden]="!formModel.hasError('maxlength',['link'])" >不能超过128个字符</label>
+          </div>
+
+
+          <div class="form-group" [class.has-error]="!(formModel.get('showOrder').valid||formModel.get('showOrder').untouched)">
+            <label>显示顺序</label>
+            <input type="text" formControlName="showOrder" class="form-control" >
+            <label class="help-block">{{formModel.getError('int',['showOrder'])}}</label>
+          </div>
+
+          <div class="form-group" [class.has-error]="!(formModel.get('cssClass').valid||formModel.get('cssClass').pristine)">
+            <label>图标样式</label>
+            <input type="text" formControlName="cssClass" class="form-control" >
+            <label class="help-block" [class.hidden]="!formModel.hasError('maxlength',['cssClass'])" >不能超过16个字符</label>
+          </div>
+
+
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+          <button *ngIf="actionMode=='edit'" (click)="cancel()" type="button" class="btn btn-default">取消</button>
+          <button *ngIf="actionMode=='view'" (click)="openDelete()" class="btn btn-danger" >删除</button>
+          <button *ngIf="actionMode=='view'" (click)="beginEdit()" class="btn btn-info pull-right" >修改</button>
+          <button *ngIf="actionMode=='edit'" (click)="save($event)" [disabled]="saveBtn" type="submit" class="btn btn-info pull-right">保存</button>
+
+        </div>
+
+        <!-- /.box-footer -->
+      </form>
+      <div class="overlay" *ngIf="loading">
+        <i class="fa fa-refresh fa-spin"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal modal-warning fade" id="menuDeleteModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">提示</h4>
+      </div>
+      <div class="modal-body">
+        <p>确定删除吗？</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-outline" (click)="deleteNode()">删除</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

@@ -1,0 +1,62 @@
+<div class="box">
+  <div class="box-header">
+  <form class="row" [formGroup]="licenceAuthQCForm">
+
+    <div class="form-group col-sm-3">
+      <input formControlName="name" class="form-control" id="name" placeholder="姓名">
+    </div>
+
+    <div class=" form-group col-sm-3">
+      <select id="status" class="form-control" (change)="chooseStatus()">
+        <option value="">全部状态</option>
+        <option value="1">审核失败</option>
+        <option value="2">审核通过</option>
+        <option value="0">审核中</option>
+      </select>
+    </div>
+
+    <div class="col-sm-3">
+      <input type="button" class="btn btn-primary btn-sm" (click)="searchLicenceAuthList()" value="搜索">
+    </div>
+    <!-- /.form group -->
+
+  </form>
+  </div>
+
+  <!-- /.box-header -->
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <tr>
+        <th>#</th>
+        <th>入驻类型</th>
+        <th>姓名</th>
+        <th>初次领证时间</th>
+        <th>手机号</th>
+        <th>提交日期</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+      <tr *ngFor="let licenceAuthInfo of licenceAuthInfoList ;let i = index;">
+        <td>{{licenceAuthInfo.id}}</td>
+        <td>驾驶证</td>
+        <td>{{licenceAuthInfo.name}}</td>
+        <td>{{licenceAuthInfo.licenceTime}}</td>
+        <td>{{licenceAuthInfo.mobile}}</td>
+        <td>{{licenceAuthInfo.createTime}}</td>
+        <td>
+          <span *ngIf="licenceAuthInfo.status==0">审核中</span>
+          <span *ngIf="licenceAuthInfo.status==1">审核失败</span>
+          <span *ngIf="licenceAuthInfo.status==2">审核通过</span>
+        </td>
+        <td>
+          <a class="btn btn-warning btn-xs" *ngIf="licenceAuthInfo.status==0 || licenceAuthInfo.status==3" (click)="update(licenceAuthInfo)">审核</a>
+          <a class="btn btn-info btn-xs" *ngIf="licenceAuthInfo.status==1 || licenceAuthInfo.status==2" (click)="update(licenceAuthInfo)">查看</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- /.box-body -->
+  <app-pagination [currentPage]="pageNum" [pageSize]="pageSize" [totalNum]="totalNum" [totalPages]="totalPages" (pageChange)="changePageNum($event)"></app-pagination>
+</div>
+<!-- /.box -->
+

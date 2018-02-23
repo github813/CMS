@@ -1,0 +1,152 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <ul class="nav nav-tabs">
+      <li role="presentation"><a (click)="showUserDetail(id)">基本信息</a></li>
+      <li role="presentation"><a (click)="showOrderDetail(id)">货单信息</a></li>
+      <li role="presentation"><a (click)="showEvaluateDetail(id)">评价信息</a></li>
+      <li role="presentation"  class="active"><a (click)="showAddressDetail(id)">地址信息</a></li>
+      <li role="presentation"><a (click)="showBlackDetail(id)">黑名单信息</a></li>
+    </ul>
+  </div>
+  <!-- /.box-header -->
+
+  <!-- form start -->
+  <div class="box">
+    <div class="box-header">
+
+    </div>
+    <!-- /.box-header -->
+    <div *ngIf="addrebytype=='check'" class="box-body table-responsive no-padding">
+      <table class="table table-hover">
+        <tr>
+          <th>地址类型</th>
+          <th>公司</th>
+          <th>省</th>
+          <th>市</th>
+          <th>县（区）</th>
+          <th>镇（村）</th>
+          <th>详细地址</th>
+          <th>是否默认</th>
+          <th>主联系人</th>
+          <th>联系电话</th>
+          <th>操作</th>
+        </tr>
+        <tr  *ngIf="ownerAddress">
+          <td>
+            <span *ngIf="ownerAddress.type==1">发货信息</span>
+            <span *ngIf="ownerAddress.type==2">收货信息</span>
+          </td>
+
+          <td>{{ownerAddress.company}}</td>
+          <td>{{ownerAddress.province}}</td>
+          <td>{{ownerAddress.city}}</td>
+          <td>{{ownerAddress.county}}</td>
+          <td>{{ownerAddress.town}}</td>
+          <td>{{ownerAddress.address}}</td>
+          <td>
+            <span *ngIf="ownerAddress.def==0">否</span>
+            <span *ngIf="ownerAddress.def==1">是</span>
+          </td>
+          <td>{{ownerAddress.name}}</td>
+          <td>{{ownerAddress.phone}}</td>
+          <td><a (click)="editinfo(ownerAddress.id)">修改</a></td>
+        </tr>
+      </table>
+    </div>
+    <div class="row mtop20">
+      <div class="col-lg-6">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>*联系人信息</th>
+              <th *ngIf="addrebytype=='edit'" colspan="3" style="text-align: right;"><a (click)="addcontact(0)">+添加联系人(必填)</a></th>
+            </tr>
+          </thead>
+          <tr>
+            <th>姓名</th>
+            <th>电话</th>
+            <th>是否是主联系人</th>
+            <th *ngIf="addrebytype=='edit'">操作</th>
+          </tr>
+          <tr *ngFor="let contact of AddressContacts;let i=index">
+            <td>{{contact.name}}</td>
+            <td>{{contact.phone}}</td>
+            <td>
+              <span *ngIf="contact.main==1">是</span>
+              <span *ngIf="contact.main==0">否</span>
+            </td>
+            <td *ngIf="addrebytype=='edit'">
+              <a (click)='delete(i,0)'>删除</a>
+              <a style="margin-left: 5px;" *ngIf="contact.main==0" (click)="setmain(i)" >设为默认</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div *ngIf="addretype==2" class="col-lg-6">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>质检员信息</th>
+            <th *ngIf="addrebytype=='edit'" colspan="3" style="text-align: right;"><a (click)="addcontact(3)">+添加质检员(必填)</a></th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>姓名</th>
+              <th>电话</th>
+              <th *ngIf="addrebytype=='edit'">操作</th>
+            </tr>
+            <tr *ngFor="let contact of AddreInspector;let j=index">
+              <td>{{contact.name}}</td>
+              <td>{{contact.phone}}</td>
+              <td *ngIf="addrebytype=='edit'">
+                <a (click)='delete(j,3)'>删除</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- /.box -->
+  <div class="modal fade" id="contactAddModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">{{modalTitle}}</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-horizontal msl">
+            <div class="form-group" [class.has-error]="!(phone.valid||phone.untouched)">
+              <label for="name" class="col-sm-2 control-label">手机号：</label>
+              <div class="col-sm-4">
+                <input type="text" [formControl]="phone" class="form-control" id="phone" placeholder="手机号">
+              </div>
+              <label class="col-sm-6 help-block" >{{errortext}}</label>
+            </div>
+            <div class="form-group" >
+              <label for="name" class="col-sm-2 control-label">姓名：</label>
+              <div class="col-sm-4">
+                <input type="text" [formControl]="name" class="form-control" id="name" placeholder="姓名">
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" (click)="save()">保存</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+
+
+</div>
+

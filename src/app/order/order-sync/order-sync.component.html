@@ -1,0 +1,37 @@
+
+<div class="box">
+  <!-- /.box-header -->
+  <div class="box-body">
+    <table id="orderChildListTable" class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>序号</th>
+        <th>货源号</th>
+        <th>货主名</th>
+        <th>货主手机号</th>
+        <th>货物名称</th>
+        <th>货物总量(吨)</th>
+        <th>货物剩余量(吨)</th>
+        <th>状态</th>
+        <th>mongo状态</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let i = index; let orderInfo of orderInfoList">
+        <td>{{(orderInfoQCForm.get('pageNum').value - 1) * orderInfoQCForm.get('pageSize').value + i + 1}}</td>
+        <td>{{orderInfo.orderNo}}</td>
+        <td>{{orderInfo.name}}</td>
+        <td>{{orderInfo.phone}}</td>
+        <td>{{orderInfo.goodsName}}</td>
+        <td>{{orderInfo.goodsAmount | number: '.2'}}</td>
+        <td>{{orderInfo.goodsResidue | number: '.2'}}</td>
+        <td>{{orderInfo.orderStatus | orderSync}}</td>
+        <td>{{orderInfo.mongoStatus | orderSync}}</td>
+        <td><a type="button" (click)="sync(orderInfo.orderNo)" class="btn-sm btn-primary">同步</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

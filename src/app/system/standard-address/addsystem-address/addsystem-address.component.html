@@ -1,0 +1,51 @@
+<form class="form-horizontal msl" [formGroup]="formModel">
+  <div class="box-body">
+
+    <div class="form-group" [class.has-error]="!(formModel.get('maxaddress').valid||formModel.get('maxaddress').untouched)">
+      <label for="maxaddress" class="col-sm-2 control-label">地址*</label>
+      <div class="col-sm-4">
+        <input type="text" formControlName="maxaddress" class="form-control" id="maxaddress" placeholder="地址" readonly>
+      </div>
+      <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['maxaddress'])" >不能为空</label>
+    </div>
+    <div class="form-group" [class.has-error]="!(formModel.get('address').valid||formModel.get('address').untouched)">
+      <label for="address" class="col-sm-2 control-label">详细地址*</label>
+      <div class="col-sm-4">
+        <input type="text" formControlName="address" class="form-control" id="address" placeholder="例：门牌号">
+      </div>
+      <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['address'])" >不能为空</label>
+    </div>
+    <div class="form-group" [class.has-error]="!(formModel.get('type').valid||formModel.get('type').untouched)">
+      <label for="type" class="col-sm-2 control-label">类别：</label>
+      <div class="col-sm-4">
+        <select id="type"   class="form-control" formControlName="type" >
+          <option value="">-请选择-</option>
+          <option value="1">煤台</option>
+          <option value="2">煤矿</option>
+          <option value="3">洗煤厂</option>
+        </select>
+      </div>
+      <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['type'])" >不能为空</label>
+    </div>
+  </div>
+
+</form>
+
+
+
+<div class="modal-body middleContent row">
+  <div class="map_region col-sm-6">所在地区：
+    <select open id='subDistricts' class="input_css"></select>
+    <select open id='subCity' class="input_css mleft5"></select>
+  </div>
+  <div id="tip col-sm-6">
+    <input type="text" style="width: 200px;" id="keyword" name="keyword" placeholder="请输入关键字：(选定后搜索)" />
+  </div>
+  <div id="container" class="map" tabindex="0" style="width:100% ;height: 400px;"></div>
+
+</div>
+<div class="box-footer">
+  <button (click)="cancel()" type="button" class="btn btn-default">返回</button>
+  <button (click)="save()" [disabled]="this.formModel.invalid" type="submit" class="btn btn-info pull-right">提交</button>
+
+</div>

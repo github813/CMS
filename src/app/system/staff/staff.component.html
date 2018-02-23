@@ -1,0 +1,89 @@
+<div class="box">
+  <div class="box-header">
+    <div>
+      <a class="btn btn-success btn-sm " (click)="create()">创建</a>
+    </div>
+
+
+    <div class="box-tools">
+      <div class="input-group input-group-sm" style="width: 35px">
+        <div class="input-group-btn-alone" >
+          <button type="submit" class="btn btn-primary" (click)="findPage()">查询</button>
+        </div>
+      </div>
+      <div class="input-group input-group-sm">
+        <input type="text" [formControl]="roleFilter" name="table_search" class="form-control pull-right" placeholder="角色">
+        <div class="input-group-btn">
+          <button type="submit" class="btn btn-default" (click)="openRoleSelect()">选择</button>
+        </div>
+      </div>
+      <div class="input-group input-group-sm">
+        <input type="text" [formControl]="departFilter" name="table_search" class="form-control pull-right" placeholder="部门">
+        <div class="input-group-btn">
+          <button type="submit" class="btn btn-default" (click)="openDepartSelect()">选择</button>
+        </div>
+      </div>
+      <div class="input-group input-group-sm" style="width: 134px">
+        <input type="text" [formControl]="nameFilter" name="table_search" class="form-control pull-right" placeholder="账号或者姓名">
+
+      </div>
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <tr>
+        <th>#</th>
+        <th>姓名</th>
+        <th>账号</th>
+        <th>手机号</th>
+        <th>角色</th>
+        <th>部门</th>
+        <th>操作</th>
+      </tr>
+      <tr *ngFor="let admin of adminList ;let i = index;">
+        <td>{{admin.id}}</td>
+        <td>{{admin.name}}</td>
+        <td>{{admin.uname}}</td>
+        <td>{{admin.mobile}}</td>
+        <td>{{admin.roleId}}</td>
+        <td>{{admin.department}}</td>
+        <td>
+          <a class="btn btn-warning btn-xs" (click)="update(admin.id)">修改</a>
+          <a class="btn btn-info btn-xs" (click)="openDelete(admin.id)">删除</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- /.box-body -->
+  <app-simple-page [page]="page" (pageChange)="pageChange($event)"></app-simple-page>
+  <div class="overlay" *ngIf="loading">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
+</div>
+<!-- /.box -->
+
+<div class="modal modal-warning fade" id="modal-warning">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">提示</h4>
+      </div>
+      <div class="modal-body">
+        <p>确定删除吗？</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-outline" (click)="deleteFun()">删除</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<app-role-select [modalStatus]="roleModalStatus" (roleChange)="roleSelect($event)"></app-role-select>
+<app-depart-select [modalStatus]="departModelStatus" (departChange)="departSelect($event)"></app-depart-select>
+

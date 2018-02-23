@@ -1,0 +1,16 @@
+<div class="wrapper">
+
+  <!-- Main Header -->
+  <app-header [navs]="navs" [name]="name" (navChange)="navChange($event)" (navEvent)="onNavEvent($event)" ></app-header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <app-menu [menus]="menus" (menuChange)="menuChange($event)"></app-menu>
+
+  <!-- Content Wrapper. Contains page content -->
+  <app-content [pageTitle]="title" [alert]="alert" ></app-content>
+  <!-- /.content-wrapper -->
+
+</div>
+<div class="toastMessage fade" *ngIf="toast.isShow"  [class.in]="toast.isIn">
+  <span class="msg">{{toast.msg}}</span>
+</div>
+

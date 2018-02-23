@@ -1,0 +1,16 @@
+.input-group-sm{
+  width: 180px;
+  float: right;
+  margin-right: 2px;
+}
+.input-group-sm>.input-group-btn-alone>.btn{
+  display: table-cell;
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+.box-header>.box-tools {
+  top:10px;
+}

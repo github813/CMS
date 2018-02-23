@@ -1,0 +1,52 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">发起提现审批</h3>
+  </div>
+  <!-- /.box-header -->
+  <!-- form start -->
+  <form class="form-horizontal msl" [formGroup]="formModel">
+    <div class="box-body">
+
+      <div class="form-group" [class.has-error]="!(formModel.get('amount').valid||formModel.get('amount').untouched)">
+        <label for="amount" class="col-sm-2 control-label">提现金额*</label>
+        <div class="col-sm-4">
+          <input formControlName="amount" class="form-control" id="amount" placeholder="单位元">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('int',['figure'])" >
+          {{formModel.getError('int',['figure'])}}
+        </label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('max',['figure'])" >不能小于1元</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('min',['figure'])" >不能大于10000000元</label>
+      </div>
+
+      <div class="form-group" [class.has-error]="!(formModel.get('cardId').valid||formModel.get('cardId').untouched)">
+        <label for="cardId" class="col-sm-2 control-label">提现银行卡*</label>
+        <div class="col-sm-4">
+          <input formControlName="cardId" class="form-control" id="cardId" placeholder="银行卡信息" disabled>
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['cardId'])" >此项必填</label>
+      </div>
+
+      <div class="form-group" [class.has-error]="!(formModel.get('remark').valid||formModel.get('remark').untouched)">
+        <label for="remark" class="col-sm-2 control-label">备注说明</label>
+        <div class="col-sm-4">
+          <input formControlName="remark" class="form-control" id="remark" placeholder="备注">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['payNo'])" >不能超过50个字符</label>
+      </div>
+
+
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+      <button (click)="cancel()" type="button" class="btn btn-default">关闭</button>
+      <button (click)="save()" [disabled]="saveBtn" class="btn btn-info pull-right">保存</button>
+
+    </div>
+
+    <!-- /.box-footer -->
+  </form>
+  <div class="overlay" *ngIf="loading">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
+</div>

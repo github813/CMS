@@ -1,0 +1,40 @@
+<aside class="main-sidebar">
+
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+
+    <!-- Sidebar user panel (optional) -->
+
+    <!-- search form (Optional) -->
+
+    <!-- /.search form -->
+
+    <!-- Sidebar Menu -->
+    <ul class="sidebar-menu">
+      <!--
+      <li class="header">HEADER</li>
+      -->
+      <!-- Optionally, you can add icons to the links -->
+      <li *ngFor="let menu of menus" [class.active]="currentMenuId == menu.id">
+        <a *ngIf="menu.child == null || menu.child.length == 0" href="javascript:" (click)="menuClick(menu)">
+          <i class="fa {{menu.cssClass}}"></i> <span>{{menu.title}}</span>
+        </a>
+        <a *ngIf="menu.child && menu.child.length>0 " href="javascript:">
+          <i class="fa {{menu.cssClass}}"></i>
+          <span>{{menu.title}}</span>
+          <span  class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul *ngIf="menu.child && menu.child.length>0" class="treeview-menu">
+          <li *ngFor="let m of menu.child" [class.active]="currentMenuId == m.id">
+            <a href="javascript:" (click)="menuClick(m)"><i class="fa fa-circle-o"></i>{{m.title}}</a>
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+    <!-- /.sidebar-menu -->
+  </section>
+  <!-- /.sidebar -->
+</aside>

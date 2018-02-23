@@ -1,0 +1,74 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">{{title}}</h3>
+  </div>
+  <!-- /.box-header -->
+  <!-- form start -->
+  <form class="form-horizontal msl" [formGroup]="formModel">
+    <div class="box-body">
+
+      <div class="form-group" [class.has-error]="!(formModel.get('versionName').valid||formModel.get('versionName').untouched)">
+        <label for="versionName" class="col-sm-2 control-label">版本名称*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="versionName" class="form-control" id="versionName" placeholder="版本名称">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['versionName'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['versionName'])" >不能超过32个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('minlength',['versionName'])" >不能少于1个字符</label>
+      </div>
+
+      <div class="form-group" [class.has-error]="!(formModel.get('versionPath').valid||formModel.get('versionPath').untouched)">
+        <label for="versionPath" class="col-sm-2 control-label">版本路径*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="versionPath" class="form-control" id="versionPath" placeholder="版本路径">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['versionPath'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['versionPath'])" >不能超过128个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('minlength',['versionPath'])" >不能少于1个字符</label>
+      </div>
+
+      <div class="form-group" [class.has-error]="!(formModel.get('versionNumber').valid||formModel.get('versionNumber').untouched)">
+        <label for="versionNumber" class="col-sm-2 control-label">版本号*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="versionNumber" class="form-control" id="versionNumber" placeholder="版本号">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['versionNumber'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['versionNumber'])" >不能超过10个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('minlength',['versionNumber'])" >不能少于1个字符</label>
+      </div>
+
+      <div class="form-group" [class.has-error]="!(formModel.get('versionContent').valid||formModel.get('versionContent').untouched)">
+        <label for="versionContent" class="col-sm-2 control-label">版本内容*</label>
+        <div class="col-sm-4">
+          <textarea type="text" formControlName="versionContent" class="form-control" id="versionContent" placeholder="版本内容"></textarea>
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['versionContent'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['versionContent'])" >不能超过128个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('minlength',['versionContent'])" >不能少于1个字符</label>
+      </div>
+
+      <div class="form-group" [class.has-error]="!(formModel.get('versionForce').valid||formModel.get('versionForce').untouched)">
+        <label class="col-sm-2 control-label">强制更新</label>
+        <div class="col-sm-4">
+        <select class="form-control" formControlName="versionForce" >
+          <option value="0">否</option>
+          <option value="1">是</option>
+        </select>
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['versionForce'])" >此项必填</label>
+      </div>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+      <button (click)="cancel()" type="button" class="btn btn-default">关闭</button>
+      <button (click)="save()" [disabled]="saveBtn" type="submit" class="btn btn-info pull-right">保存</button>
+
+    </div>
+
+    <!-- /.box-footer -->
+  </form>
+  <div class="overlay" *ngIf="loading">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
+</div>
+

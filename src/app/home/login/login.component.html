@@ -1,0 +1,33 @@
+<div class="login-wapper">
+<div class=" box login-box">
+  <div class="login-logo">
+    <b>马上来管理平台</b>
+  </div>
+  <!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg">登录</p>
+
+    <form class="msl" [formGroup]="formModel">
+      <div class="form-group has-feedback" [class.has-error]="!(formModel.get('uname').valid||formModel.get('uname').untouched)">
+        <input class="form-control" formControlName="uname" placeholder="账号">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <label class="help-block" [class.hidden]="!formModel.hasError('required',['uname'])" >此项必填</label>
+        <label class="help-block" [class.hidden]="!formModel.hasError('maxlength',['uname'])" >不能超过16个字符</label>
+        <label class="help-block" [class.hidden]="!formModel.hasError('minlength',['uname'])" >不能少于6个字符</label>
+      </div>
+      <div class="form-group has-feedback" [class.has-error]="!(formModel.get('pwd').valid||formModel.get('pwd').untouched)">
+        <input type="password" class="form-control" formControlName="pwd" placeholder="密码">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        <label class="help-block">格式为6到24个字符</label>
+      </div>
+      <button [disabled]="loginBtn" class="btn btn-primary btn-block btn-flat" (click)="login()">登录</button>
+    </form>
+
+  </div>
+  <!-- /.login-box-body -->
+  <div class="overlay" *ngIf="loginBtn">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
+</div>
+<!-- /.login-box -->
+</div>

@@ -1,0 +1,62 @@
+<div class="box">
+  <div class="box-header">
+    <div >
+      <a class="btn btn-success btn-sm " (click)="create()">创建</a>
+      <a class="btn btn-info btn-sm " (click)="changeList('auditList')" [ngClass]="{'active':listType == 'auditList'}">待审核</a>
+      <a class="btn btn-info btn-sm " (click)="changeList('list')" [ngClass]="{'active':listType == 'list'}">审核记录</a>
+    </div>
+    <div class="box-tools">
+      <div class="input-group input-group-sm w35">
+        <div class="input-group-btn-alone" >
+          <button class="btn btn-primary" (click)="findPage(true)">查询</button>
+        </div>
+      </div>
+
+      <div class="input-group input-group-sm w100">
+        <select class="form-control" title="status" [formControl]="statusFilter">
+          <option value="">提现状态</option>
+          <option value="0">发起</option>
+          <option value="1">进行中</option>
+          <option value="2">结束</option>
+          <option value="3">拒绝</option>
+          <option value="3">取消</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <tr>
+        <th>ID</th>
+        <th>创建人</th>
+        <th>状态</th>
+        <th>提现金额</th>
+        <th>银行卡号</th>
+        <th>账号名称</th>
+        <th>开户银行</th>
+        <th>创建时间</th>
+        <th>操作</th>
+      </tr>
+      <tr *ngFor="let e of dataList ;let i = index;">
+        <td>{{e.id}}</td>
+        <td>{{e.createByName}}</td>
+        <td>{{e.status|transform:"settlementStatus"}}</td>
+        <td>{{e.amount}}</td>
+        <td>{{e.cardNum}}</td>
+        <td>{{e.cardOwnerName}}</td>
+        <td>{{e.bankName}}</td>
+        <td>{{e.createTime}}</td>
+        <td>
+          <a class="btn btn-warning btn-xs" (click)="view(e.id)">查看</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- /.box-body -->
+  <app-simple-page [page]="page" (pageChange)="pageChange($event)"></app-simple-page>
+  <div class="overlay" *ngIf="loading">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
+</div>

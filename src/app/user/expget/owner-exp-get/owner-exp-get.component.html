@@ -1,0 +1,39 @@
+<div>
+  <button (click)=" addExp(2)">新建</button>
+</div>
+<div class="box">
+  <div class="box-header">
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <tr>
+        <th>成长值编码</th>
+        <th>成长值名称</th>
+        <th>成长值限制类型</th>
+        <th>限制时间段</th>
+        <th>完成次数奖励</th>
+        <th>最高可获得V值</th>
+        <th>奖励是否是固定值</th>
+        <th>奖励V值</th>
+        <th>操作</th>
+      </tr>
+      <tr *ngFor="let ownerInfo of data ;let i = index;">
+        <td>{{ownerInfo.expCode}}</td>
+        <td>{{ownerInfo.expName}}</td>
+        <td>{{ownerInfo.hasLimit==0?"否":"是"}}</td>
+        <td>{{read(ownerInfo.expLimitType)}}</td>
+        <td>{{ownerInfo.performTimes}}</td>
+        <td>{{ownerInfo.expLimitValue||"无限制"}}</td>
+        <td>{{ownerInfo.isFixedValue==0?"否":"是"}}</td>
+        <td>{{ownerInfo.expValue||"无限制"}}</td>
+        <td>
+          <a class="btn btn-warning btn-xs" (click)="ownerDelete(ownerInfo.expCode)">删除</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- /.box-body -->
+  <!--<app-pagination [currentPage]="pageNum" [pageSize]="pageSize" [totalNum]="totalNum" [totalPages]="totalPages" (pageChange)="changePageNum($event)"></app-pagination>-->
+</div>
+<!-- /.box -->

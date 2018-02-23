@@ -1,0 +1,19 @@
+.pagination>li>a.active{
+  background: #fafada;
+}
+.simple-page{
+  line-height: 30px;
+  vertical-align: middle;
+}
+.simple-page input{
+  width:30px;
+  height:30px;
+  display: inline-block;
+  float: right;
+}
+.simple-page .btn-xs{
+  margin:0;
+  padding: 5px 9px;
+  display: inline-block;
+  float: right;
+}

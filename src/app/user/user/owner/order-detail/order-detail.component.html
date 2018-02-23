@@ -1,0 +1,198 @@
+<div class="box-body">
+  <div class="box-header with-border">
+    <ul class="nav nav-tabs">
+      <li role="presentation"><a (click)="showUserDetail(id)">基本信息</a></li>
+      <li role="presentation" class="active"><a (click)="showOrderDetail(id)">货单信息</a></li>
+      <li role="presentation"><a (click)="showEvaluateDetail(id)">评价信息</a></li>
+      <li role="presentation"><a (click)="showAddressDetail(id)">地址信息</a></li>
+      <li role="presentation"><a (click)="showBlackDetail(id)">黑名单信息</a></li>
+    </ul>
+  </div>
+  <form class="row form-horizontal" [formGroup]="orderInfoQCForm">
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="orderNo" class="col-lg-5 control-label">货源号：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="orderNo" class="col-lg-12 form-control" id="orderNo" placeholder="订单号">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="name" class="col-lg-5 control-label">货主姓名：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="name" class="col-lg-12 form-control" id="name"
+                 placeholder="货主姓名">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="phone" class="col-lg-5 control-label">手机号：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="phone" class="col-lg-12 form-control" id="phone" placeholder="手机号">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="goodsName" class="col-lg-5 control-label">货物名称：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="goodsName" class="col-lg-12 form-control" id="goodsName"
+                 placeholder="司机姓名">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="minGoodsAmount" class="col-lg-5 control-label">货物重量：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="minGoodsAmount" class="col-lg-6 form-control" id="minGoodsAmount"
+                 placeholder="货物重量">-
+          <input type="text" formControlName="maxGoodsAmount" class="col-lg-6 form-control" id="maxGoodsAmount"
+                 placeholder="货物重量">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="minGoodsResidue" class="col-lg-5 control-label">货物剩余量：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="minGoodsResidue" class="col-lg-6 form-control" id="minGoodsResidue"
+                 placeholder="货物剩余量">-
+          <input type="text" formControlName="maxGoodsResidue" class="col-lg-6 form-control" id="maxGoodsResidue"
+                 placeholder="货物剩余量">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="minGoodsPrice" class="col-lg-5 control-label">货物价值：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="minGoodsPrice" class="col-lg-6 form-control" id="minGoodsPrice"
+                 placeholder="货物价值">-
+          <input type="text" formControlName="maxGoodsPrice" class="col-lg-6 form-control" id="maxGoodsPrice"
+                 placeholder="货物价值">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="minFreightPrice" class="col-lg-5 control-label">运费单价：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="minFreightPrice" class="col-lg-6 form-control" id="minFreightPrice"
+                 placeholder="运费单价">-
+          <input type="text" formControlName="maxFreightPrice" class="col-lg-6 form-control" id="maxFreightPrice"
+                 placeholder="运费单价">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="insurance" class="col-lg-5 control-label">是否有保险：</label>
+        <div class="col-lg-7">
+          <select id="insurance" (change)="chooseInsurance()">
+            <option value="">全部</option>
+            <option value="0" [selected]="orderInfoQCForm.get(['insurance']).value == 0">无</option>
+            <option value="1" [selected]="orderInfoQCForm.get(['insurance']).value == 1">投保</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="status" class="col-lg-5 control-label">状态：</label>
+        <div class="col-lg-7">
+          <select id="status" (change)="chooseStatus()">
+            <option value="">全部</option>
+            <option value="1" [selected]="orderInfoQCForm.get(['status']).value == 1">创建</option>
+            <option value="2" [selected]="orderInfoQCForm.get(['status']).value == 2">已发布</option>
+            <option value="10" [selected]="orderInfoQCForm.get(['status']).value == 10">运输中</option>
+            <option value="11" [selected]="orderInfoQCForm.get(['status']).value == 11">暂停</option>
+            <option value="20" [selected]="orderInfoQCForm.get(['status']).value == 20">支付中</option>
+            <option value="30" [selected]="orderInfoQCForm.get(['status']).value == 30">完成</option>
+            <option value="40" [selected]="orderInfoQCForm.get(['status']).value == 40">取消</option>
+            <option value="60" [selected]="orderInfoQCForm.get(['status']).value == 60">支付失败</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="minInsuranceFee" class="col-lg-5 control-label">保险金额：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="minInsuranceFee" class="col-lg-6 form-control" id="minInsuranceFee"
+                 placeholder="保险金额">-
+          <input type="text" formControlName="maxInsuranceFee" class="col-lg-6 form-control" id="maxInsuranceFee"
+                 placeholder="保险金额">
+        </div>
+      </div>
+    </div>
+    <!-- Date and time range -->
+    <!--<div class="col-lg-7">-->
+      <!--<div class="input-group">-->
+        <!--<label for="timeRangeInput" class="col-lg-5 control-label">时间范围:</label>-->
+        <!--<div class="input-group-addon">-->
+          <!--<i class="fa fa-clock-o"></i>-->
+        <!--</div>-->
+        <!--<div id="timeRange" class="col-lg-7">-->
+          <!--<input type="text" formControlName="timeRangeInput" id="timeRangeInput" class="col-lg-12 form-control">-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--&lt;!&ndash; /.input group &ndash;&gt;-->
+    <!--</div>-->
+    <div class="col-lg-1">
+      <input type="button" class="btn btn-block btn-primary btn-lg" (click)="searchOrderChildList()" value="搜索">
+    </div>
+    <!-- /.form group -->
+
+  </form>
+</div>
+
+<div class="box">
+  <!-- /.box-header -->
+  <div class="box-body">
+    <table id="orderChildListTable" class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>序号</th>
+        <th>货源号</th>
+        <th>货主名</th>
+        <th>货主手机号</th>
+        <th>货物名称</th>
+        <th>货物总量</th>
+        <th>货物剩余量</th>
+        <th>货物价值</th>
+        <th>运费单价</th>
+        <th>担保费</th>
+        <th>货主保证金</th>
+        <th>状态</th>
+        <th>创建时间</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let i = index; let orderInfo of orderInfoList">
+        <td>{{(pageNum - 1) * pageSize + i + 1}}</td>
+        <td>{{orderInfo.orderNo}}</td>
+        <td>{{orderInfo.name}}</td>
+        <td>{{orderInfo.phone}}</td>
+        <td>{{orderInfo.goodsName}}</td>
+        <td>{{orderInfo.goodsAmount}}</td>
+        <td>{{orderInfo.goodsResidue}}</td>
+        <td>{{orderInfo.goodsPrice | number:'.2-2'}}</td>
+        <td>{{orderInfo.freightPrice | number:'.2-2'}}</td>
+        <td>{{orderInfo.insuranceFee | number:'.2-2'}}</td>
+        <td>{{orderInfo.ownerDeposit | number:'.2-2'}}</td>
+        <td>{{orderInfo.orderStatus}}</td>
+        <td>{{orderInfo.createTime}}</td>
+        <td><a type="button" (click)="toOrderInfoDetail(orderInfo)">查看详情</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- /.box-body -->
+  <app-pagination [currentPage]="pageNum" [pageSize]="pageSize" [totalNum]="totalNum" [totalPages]="totalPages" (pageChange)="changePageNum($event)"></app-pagination>
+</div>

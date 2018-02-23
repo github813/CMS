@@ -1,0 +1,57 @@
+<!-- Horizontal Form -->
+<div class="box box-info">
+  <!-- form start -->
+  <form class="form-horizontal" [formGroup]="systemNotifyForm">
+    <div class="box-body">
+      <div class="form-group">
+        <div class="form-group" [class.has-error]="(!systemNotifyForm.get('receiver').valid && systemNotifyForm.get('receiver').value != null && systemNotifyForm.get('receiver').value != '')">
+          <label for="receiver" class="col-sm-2 control-label">接收者ID：</label>
+          <div class="col-sm-3">
+            <input type="text" [readonly]="!(systemNotifyForm.get('id').value == null || systemNotifyForm.get('id').value == '')" class="form-control" formControlName="receiver" id="receiver" placeholder="接收者Id">
+          </div>
+          <span>（不填写情况下所有相应角色的用户均可接收）</span>
+          <!--<label class="help-block" [class.hidden]="!(systemNotifyForm.hasError('required',['receiver']) && systemNotifyForm.get('receiver').touched)" >接收者ID必填</label>-->
+          <label class="help-block" [class.hidden]="(!systemNotifyForm.hasError('int',['receiver']) || systemNotifyForm.get('receiver').value == null || systemNotifyForm.get('receiver').value == '')" >接收者ID必须为正整数</label>
+          <label class="help-block" [class.hidden]="(!systemNotifyForm.hasError('min',['receiver']) || systemNotifyForm.get('receiver').value == null || systemNotifyForm.get('receiver').value == '')" >接收者ID必须为正整数</label>
+        </div>
+
+        <div class="form-group" [class.has-error]="(!systemNotifyForm.get('receiverRole').valid && systemNotifyForm.get('receiverRole').touched)">
+          <label for="receiverRole" class="col-sm-2 control-label">接收者角色：</label>
+          <div class="col-sm-3">
+            <select id="receiverRole" formControlName="receiverRole" class="form-control">
+              <option value="">请选择</option>
+              <option value="driver" [selected]="systemNotifyForm.get(['receiverRole']).value == 'driver'">司机</option>
+              <option value="owner" [selected]="systemNotifyForm.get(['receiverRole']).value == 'owner'">货主</option>
+            </select>
+          </div>
+          <label class="help-block" [class.hidden]="!(systemNotifyForm.hasError('required',['receiverRole']) && systemNotifyForm.get('receiverRole').touched)" >请选择接收者角色</label>
+        </div>
+
+        <div class="form-group" [class.has-error]="(!systemNotifyForm.get('title').valid && systemNotifyForm.get('title').touched)">
+          <label for="title" class="col-sm-2 control-label">标题：</label>
+          <div class="col-sm-3">
+            <input type="text" class="form-control" formControlName="title" id="title" placeholder="标题">
+          </div>
+          <label class="help-block" [class.hidden]="!(systemNotifyForm.hasError('required',['title']) && systemNotifyForm.get('title').touched)" >标题不能为空</label>
+        </div>
+
+
+        <div class="form-group" [class.has-error]="(!systemNotifyForm.get('content').valid && systemNotifyForm.get('content').touched)">
+          <label for="content" class="col-sm-2 control-label">通知内容：</label>
+          <div class="col-sm-3">
+            <textarea type="text" class="form-control" formControlName="content"  id="content" placeholder="通知内容"></textarea>
+          </div>
+          <label class="help-block" [class.hidden]="!(systemNotifyForm.hasError('required',['content']) && systemNotifyForm.get('content').touched)" >通知内容不能为空</label>
+        </div>
+      </div>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+      <button type="submit" (click)="submit()" class="btn btn-info pull-right">保存</button>
+    </div>
+    <!-- /.box-footer -->
+  </form>
+</div>
+
+
+<app-result-popup-window [result]="result" [status]="resultMsgStatus"></app-result-popup-window>

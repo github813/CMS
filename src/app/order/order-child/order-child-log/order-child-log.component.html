@@ -1,0 +1,50 @@
+<!-- 信息删除确认 -->
+<div class="modal fade" id="orderChildLogModal">
+  <div class="modal-dialog">
+    <div class="modal-content message_align">
+      <div class="modal-header">
+        <h4 class="modal-title">子订单日志</h4>
+      </div>
+      <div class="modal-body">
+        <div class="box">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <table id="logListTable" class="table table-bordered table-striped" style="table-layout:fixed;word-wrap:break-word;">
+              <thead>
+              <tr>
+                <th  class="col-sm-1" >id</th>
+                <th  class="col-sm-1">订单号</th>
+                <th  class="col-sm-1">操作人id</th>
+                <th  class="col-sm-1">操作人姓名</th>
+                <th  class="col-sm-1">操作人手机号</th>
+                <th  class="col-sm-1">操作人角色</th>
+                <th  class="col-sm-1">操作类型</th>
+                <th  class="col-sm-1">备注</th>
+                <th  class="col-sm-1">创建时间</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let orderChildLog of orderChildLogList">
+                <td  class="col-sm-1" >{{orderChildLog.id}}</td>
+                <td  class="col-sm-1">{{orderChildLog.childNo}}</td>
+                <td  class="col-sm-1">{{orderChildLog.createBy}}</td>
+                <td  class="col-sm-1">{{orderChildLog.createName}}</td>
+                <td  class="col-sm-1">{{orderChildLog.createPhone}}</td>
+                <td  class="col-sm-1" *ngIf="orderChildLog.createType == 1">货主</td>
+                <td  class="col-sm-1" *ngIf="orderChildLog.createType == 2">司机</td>
+                <td  class="col-sm-1">{{orderChildLog.type | orderChildLogType}}</td>
+                <td  class="col-sm-1">{{orderChildLog.remark}}</td>
+                <td  class="col-sm-1">{{orderChildLog.createTime}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- /.box-body -->
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+

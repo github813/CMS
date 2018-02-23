@@ -1,0 +1,37 @@
+<button (click)="create()">新建</button>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">字典项配置列表</h3>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+          <tr>
+            <th>ID</th>
+            <th>key</th>
+            <th>value</th>
+            <th>描述</th>
+            <th>创建时间</th>
+            <th>最后修改时间</th>
+            <th>操作</th>
+          </tr>
+          <tr *ngFor="let i = index; let systemDictionaries of systemDictionariesList">
+            <td>{{systemDictionaries.id}}</td>
+            <td>{{systemDictionaries.key}}</td>
+            <td>{{systemDictionaries.value}}</td>
+            <td>{{systemDictionaries.content}}</td>
+            <td>{{systemDictionaries.createTime}}</td>
+            <td>{{systemDictionaries.modifiedTime}}</td>
+            <td>
+              <!--<a type="button" (click)="deleteSystemDictionaries(systemDictionaries.id)" class="btn btn-danger">删除</a>&nbsp;-->
+              <a type="button" (click)="update(systemDictionaries.id)" class="btn btn-warning">修改</a></td>
+          </tr>
+        </table>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+  </div>
+</div>

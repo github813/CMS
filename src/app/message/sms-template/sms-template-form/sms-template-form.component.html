@@ -1,0 +1,45 @@
+<!-- Horizontal Form -->
+<div class="box box-info">
+  <!-- form start -->
+  <form class="form-horizontal" [formGroup]="smsTemplateForm">
+    <div class="box-body">
+      <div class="form-group">
+        <div class="form-group" [class.has-error]="(!smsTemplateForm.get('type').valid && smsTemplateForm.get('type').touched)">
+          <label for="type" class="col-sm-2 control-label">短信类型：</label>
+          <div class="col-sm-3">
+            <input type="text" [readonly]="!(smsTemplateForm.get('id').value == null || smsTemplateForm.get('id').value == '')" class="form-control" formControlName="type" id="type" placeholder="短信类型">
+          </div>
+          <label class="help-block" [class.hidden]="!(smsTemplateForm.hasError('required',['type']) && smsTemplateForm.get('type').touched)" >短信类型不能为空</label>
+        </div>
+        <div class="form-group" [class.has-error]="(!smsTemplateForm.get('templateCode').valid && smsTemplateForm.get('templateCode').touched)">
+          <label for="type" class="col-sm-2 control-label">短信模板Id：</label>
+          <div class="col-sm-3">
+            <input type="text" class="form-control" formControlName="templateCode"  placeholder="模板Id">
+          </div>
+          <label class="help-block" [class.hidden]="!(smsTemplateForm.hasError('required',['templateCode']) && smsTemplateForm.get('templateCode').touched)" >模板Id不能为空</label>
+        </div>
+        <div class="form-group" [class.has-error]="(!smsTemplateForm.get('description').valid && smsTemplateForm.get('description').touched)">
+          <label for="type" class="col-sm-2 control-label">短信描述：</label>
+          <div class="col-sm-3">
+            <input type="text" class="form-control" formControlName="description" placeholder="短信描述">
+          </div>
+          <label class="help-block" [class.hidden]="!(smsTemplateForm.hasError('required',['description']) && smsTemplateForm.get('description').touched)" >短信描述不能为空</label>
+        </div>
+        <div class="form-group" [class.has-error]="(!smsTemplateForm.get('description').valid && smsTemplateForm.get('description').touched)">
+          <label for="type" class="col-sm-2 control-label">短信模板：</label>
+          <div class="col-sm-3">
+            <textarea type="text" class="form-control" formControlName="content"  placeholder="短信模板"></textarea>
+          </div>
+          <label class="help-block" [class.hidden]="!(smsTemplateForm.hasError('required',['description']) && smsTemplateForm.get('description').touched)" >短信模板不能为空</label>
+        </div>
+      </div>
+    </div>
+      <!-- /.box-body -->
+      <div class="box-footer">
+        <button type="submit" (click)="submitSmsTemplate()" class="btn btn-info pull-right">保存</button>
+      </div>
+      <!-- /.box-footer -->
+  </form>
+</div>
+
+<app-result-popup-window [result]="result" [status]="resultMsgStatus"></app-result-popup-window>

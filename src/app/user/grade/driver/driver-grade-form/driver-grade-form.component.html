@@ -1,0 +1,115 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">{{title}}</h3>
+  </div>
+  <!-- /.box-header -->
+  <!-- form start -->
+  <form class="form-horizontal msl" [formGroup]="formModel">
+    <div class="box-body">
+      <div style="display:none;" class="form-group" [class.has-error]="!(formModel.get('creatorId').valid||formModel.get('creatorId').untouched)">
+        <label *ngIf="!this.id"  for="creatorId" class="col-sm-2 control-label">用户id*</label>
+        <div *ngIf="!this.id"  class="col-sm-4">
+          <input type="text" formControlName="creatorId" class="form-control" id="creatorId" placeholder="creatorId" [readonly]="id != null">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['creatorId'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['creatorId'])" >不能超过8个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('minlength',['creatorId'])" >不能少于1个字符</label>
+      </div>
+      <div class="form-group" [class.has-error]="!(formModel.get('gradeName').valid||formModel.get('gradeName').untouched)">
+        <label for="gradeName" class="col-sm-2 control-label">等级名称*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="gradeName" class="form-control" id="gradeName" placeholder="等级名称" >
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['gradeName'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['gradeName'])" >不能超过4个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('minlength',['gradeName'])" >不能少于3个字符</label>
+      </div>
+      <!--<div class="form-group" [class.has-error]="!(formModel.get('gradeNo').valid||formModel.get('gradeNo').untouched)">-->
+        <!--<label for="gradeNo" class="col-sm-2 control-label">等级编码*</label>-->
+        <!--<div class="col-sm-4">-->
+          <!--<input type="text" formControlName="gradeNo" class="form-control" id="gradeNo" placeholder="等级编码（只能为数字）" [readonly]="id != null">-->
+        <!--</div>-->
+        <!--<label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['gradeNo'])" >不能为空</label>-->
+        <!--<label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['gradeNo'])" >不能超过2个字符</label>-->
+        <!--<label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('minlength',['gradeNo'])" >不能少于1个字符</label>-->
+      <!--</div>-->
+      <div class="form-group" [class.has-error]="!(formModel.get('gradeExp').valid||formModel.get('gradeExp').untouched)">
+        <label for="gradeExp" class="col-sm-2 control-label">升级所需经验值*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="gradeExp" class="form-control" id="gradeExp" placeholder="升级所需经验值（只能为数字）" >
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['gradeExp'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['gradeExp'])" >不能超过7个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('minlength',['gradeExp'])" >不能少于1个字符</label>
+      </div>
+      <div class="form-group" [class.has-error]="!(formModel.get('informationRate').valid||formModel.get('informationRate').untouched)">
+        <label for="informationRate" class="col-sm-2 control-label">信息费率*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="informationRate" class="form-control" id="informationRate" placeholder="信息费率（只能为数字）">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['informationRate'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('max',['informationRate'])" >不能超过1个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('min',['informationRate'])" >不能少于0个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('pattern',['informationRate'])" >必须是大于等于0小于等于1的数值</label>
+      </div>
+      <div class="form-group" [class.has-error]="!(formModel.get('integralRate').valid||formModel.get('integralRate').untouched)">
+        <label for="integralRate" class="col-sm-2 control-label">积分返还*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="integralRate" class="form-control" id="integralRate" placeholder="积分返还（只能为数字）">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['integralRate'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('max',['integralRate'])" >不能超过1个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('min',['integralRate'])" >不能少于0个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('pattern',['integralRate'])" >必须是大于等于0小于等于1的数值</label>
+      </div>
+      <div class="form-group" [class.has-error]="!(formModel.get('creditCeiling').valid||formModel.get('creditCeiling').untouched)">
+        <label for="creditCeiling"  class="col-sm-2 control-label">信用购车</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="creditCeiling" class="form-control" id="creditCeiling" placeholder="最少10000">
+        </div>
+        <!--<label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['creditCeiling'])" >不能为空</label>-->
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('max',['creditCeiling'])" >不能超过800000</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('min',['creditCeiling'])" >要大于100</label>
+      </div>
+      <div class="form-group" [class.has-error]="!(formModel.get('mallRate').valid||formModel.get('mallRate').untouched)">
+        <label for="mallRate"  class="col-sm-2 control-label">商城优惠*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="mallRate" class="form-control" id="mallRate" placeholder="商城优惠（只能为数字）">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['mallRate'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('max',['mallRate'])" >不能超过6个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('min',['mallRate'])" >不能少于4个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('pattern',['mallRate'])" >必须是大于等于0小于等于1的数值</label>
+      </div>
+      <div class="form-group" [class.has-error]="!(formModel.get('pushPriority').valid||formModel.get('pushPriority').untouched)">
+        <label  class="col-sm-2 control-label">货源信息优先推送*</label>
+        <div class="col-sm-4">
+          否<input type="radio"   checked    name="pushPriority"  value='0' (click)="checkradio(0,2)">
+          是<input type="radio"  name="pushPriority" value="1" (click)="checkradio(1,2)">
+        </div>
+      </div>
+      <div class="form-group" [class.has-error]="!(formModel.get('superService').valid||formModel.get('superService').untouched)">
+        <label  class="col-sm-2 control-label">超级客服*</label>
+        <div class="col-sm-4">
+          否<input type="radio"   checked    name="superService"  value='0' (click)="checkradio(0,1)">
+          是<input type="radio"  name="superService" value="1" (click)="checkradio(1,1)">
+        </div>
+      </div>
+<!--informationRate -->
+
+
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+      <button (click)="cancel()" type="button" class="btn btn-default">关闭</button>
+      <button (click)="save()" [disabled]="saveBtn" type="submit" class="btn btn-info pull-right">保存</button>
+
+    </div>
+
+    <!-- /.box-footer -->
+  </form>
+  <div class="overlay" *ngIf="loading">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
+</div>
+

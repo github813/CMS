@@ -1,0 +1,52 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">{{title}}</h3>
+  </div>
+  <!-- /.box-header -->
+  <!-- form start -->
+  <form class="form-horizontal msl" [formGroup]="formModel">
+    <div class="box-body">
+
+      <div style="display:none;" class="form-group" [class.has-error]="!(formModel.get('userId').valid||formModel.get('userId').untouched)">
+        <label *ngIf="!this.id"  for="userId" class="col-sm-2 control-label">用户id*</label>
+        <div *ngIf="!this.id"  class="col-sm-4">
+          <input type="text" formControlName="userId" class="form-control" id="userId" placeholder="userId" [readonly]="id != null">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['userId'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['userId'])" >不能超过8个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('minlength',['userId'])" >不能少于1个字符</label>
+      </div>
+
+      <div class="form-group" [class.has-error]="!(formModel.get('star').valid||formModel.get('star').untouched)">
+        <label for="star" class="col-sm-2 control-label">星级*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="star" class="form-control" id="star" [readonly]="id != null" placeholder="star">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['star'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['star'])" >不能超过32个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('minlength',['star'])" >不能少于1个字符</label>
+      </div>
+
+      <div class="form-group" [class.has-error]="!(formModel.get('rate').valid||formModel.get('rate').untouched)">
+        <label for="rate" class="col-sm-2 control-label">费率*</label>
+        <div class="col-sm-4">
+          <textarea type="text" formControlName="rate" class="form-control" id="rate" placeholder="费率"></textarea>
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['rate'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['rate'])" >不能超过8个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('minlength',['rate'])" >不能少于1个字符</label>
+      </div>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+      <button (click)="cancel()" type="button" class="btn btn-default">关闭</button>
+      <button (click)="save()" [disabled]="saveBtn" type="submit" class="btn btn-info pull-right">保存</button>
+
+    </div>
+
+    <!-- /.box-footer -->
+  </form>
+  <div class="overlay" *ngIf="loading">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
+</div>

@@ -1,0 +1,97 @@
+<header class="main-header">
+
+  <!-- Logo -->
+  <a href="javascript:" class="logo" (click)="test()">
+    <!-- mini logo for sidebar mini 50x50 pixels -->
+    <span class="logo-mini"><img src="assets/img/logo-mini.png"></span>
+    <!-- logo for regular state and mobile devices -->
+    <span class="logo-lg">马上来管理平台</span>
+  </a>
+
+
+  <!-- Header Navbar -->
+  <nav class="navbar navbar-static-top" role="navigation">
+    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+      <span class="sr-only">切换菜单</span>
+    </a>
+    <a href="javascript:" class="nav-scroll " (click)="scrollFun(-1)" *ngIf="scrollLeftBtn">
+      <span class="glyphicon glyphicon-backward"></span>
+    </a>
+    <a href="javascript:" class="nav-scroll fly-right " (click)="scrollFun(1)" *ngIf="scrollRightBtn">
+      <span class="glyphicon glyphicon-forward"></span>
+    </a>
+    <ul class="nav navbar-nav nav-xs" [style.transform]="transform">
+    <!-- Sidebar toggle button-->
+
+      <li *ngFor="let nav of navs" [class.active] ="id == nav.id" >
+        <a href="javascript:" class="navMenuBtn1" (click)="navClick(nav)" >{{nav.title}}</a>
+      </li>
+    </ul>
+
+    <!-- Navbar Right Menu -->
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        <!-- Messages: style can be found in dropdown.less-->
+        <li class="dropdown messages-menu"></li>
+        <!-- /.messages-menu -->
+
+        <!-- Notifications Menu -->
+        <li class="dropdown notifications-menu"></li>
+        <!-- Tasks Menu -->
+        <li class="dropdown tasks-menu"></li>
+        <!-- User Account Menu -->
+        <li class="dropdown user user-menu">
+          <!-- Menu Toggle Button -->
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <!-- The user image in the navbar-->
+            <!-- hidden-xs hides the username on small devices so only the image appears. -->
+            <span class="">{{name}}</span>
+          </a>
+          <ul class="dropdown-menu">
+            <!-- The user image in the menu -->
+            <!--
+            <li class="user-header">
+
+              <p>
+                Alexander Pierce - Web Developer
+                <small>Member since Nov. 2012</small>
+              </p>
+            </li>
+            -->
+            <!-- Menu Body -->
+            <!--
+            <li class="user-body">
+              <div class="row">
+                <div class="col-xs-4 text-center">
+                  <a href="#">Followers</a>
+                </div>
+                <div class="col-xs-4 text-center">
+                  <a href="#">Sales</a>
+                </div>
+                <div class="col-xs-4 text-center">
+                  <a href="#">Friends</a>
+                </div>
+              </div>
+            </li>
+            -->
+            <!-- Menu Footer-->
+            <li class="user-footer">
+              <div class="pull-left">
+                <a href="javascript:" class="btn btn-default btn-flat" (click)="myInfo()">个人信息</a>
+              </div>
+              <div class="pull-right">
+                <a href="javascript:" class="btn btn-default btn-flat" (click)="logout()">退出登录</a>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <!-- Control Sidebar Toggle Button -->
+        <!--
+        <li>
+          <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+        </li>
+        -->
+      </ul>
+    </div>
+  </nav>
+</header>

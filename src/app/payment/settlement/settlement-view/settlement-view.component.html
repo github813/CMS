@@ -1,0 +1,141 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">审批详情</h3>
+  </div>
+  <div class="box-body audit-process-div">
+    <ul class="audit-process">
+      <li class="node" [ngClass]="{'complete':settlement?.status !=4 }">开始</li>
+      <li class="node" *ngFor="let e of auditProcessNodeList ;let i = index;"
+          [ngClass]="{'complete': e.nodeNo < settlement?.currentNodeNo && settlement?.status !=4,
+          'ing': e.nodeNo == settlement?.currentNodeNo && settlement?.status !=4 }">{{e.nodeName}}</li>
+      <li class="end" [ngClass]="{'ing': settlement?.currentNodeNo == 1000}" >结束</li>
+    </ul>
+  </div>
+  <div class="box-body form-horizontal">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="col-sm-3 control-label">发起人:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{settlement?.createByName}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">提现金额:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{settlement?.amount}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">账户名称:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{settlement?.cardOwnerName}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">备注:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{settlement?.remark}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="col-sm-3 control-label">状态:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{settlement?.status|transform:"settlementStatus"}}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-3 control-label">银行卡号:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{settlement?.cardNum}}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-3 control-label">开户银行:</label>
+        <div class="col-sm-9 input-group ">
+          <p class="form-control-static msl">{{settlement?.bankName}}</p>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <tr>
+        <th>ID</th>
+        <th>审核节点</th>
+        <th>审核人</th>
+        <th>审核结果</th>
+        <th>审核意见</th>
+        <th>审核时间</th>
+      </tr>
+      <tr *ngFor="let e of dataList ;let i = index;">
+        <td>{{e.id}}</td>
+        <td>{{e.nodeName}}</td>
+        <td>{{e.auditByName}}</td>
+        <td>{{e.auditResult|transform:"auditResultStatus"}}</td>
+        <td>{{e.remark}}</td>
+        <td>{{e.createTime}}</td>
+      </tr>
+    </table>
+  </div>
+  <div class="box-footer">
+    <button (click)="close()" type="button" class="btn btn-default">关闭</button>
+    <button (click)="openAudit()" [disabled]="saveBtn" *ngIf="isAudit" class="btn btn-info pull-right">审批</button>
+    <button (click)="settlementFun()" [disabled]="saveBtn" *ngIf="isSettlement" class="btn btn-primary pull-right">提现</button>
+    <button (click)="cancel()" [disabled]="saveBtn" *ngIf="isCancel" class="btn btn-warning pull-right">撤销</button>
+  </div>
+
+</div>
+
+
+<div class="modal fade" id="auditModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">审核</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-horizontal msl">
+
+          <div class="form-group" [class.has-error]="!(result.valid||result.untouched)">
+            <label for="result" class="col-sm-2 control-label">审核结果*</label>
+            <div class="col-sm-4">
+                <select class="form-control" [formControl]="result" id="result">
+                  <option value="">请选择</option>
+                  <option value="true">同意</option>
+                  <option value="false">拒绝</option>
+              </select>
+            </div>
+            <label class="col-sm-6 help-block" [class.hidden]="!result.hasError('required')" >不能为空</label>
+          </div>
+
+          <div class="form-group" [class.has-error]="!(remark.valid||remark.untouched)">
+            <label for="remark" class="col-sm-2 control-label">审核意见*</label>
+            <div class="col-sm-10">
+              <input [formControl]="remark" class="form-control" id="remark" placeholder="审核意见">
+            </div>
+            <label class="col-sm-6 help-block" [class.hidden]="!remark.hasError('required')" >不能为空</label>
+            <label class="col-sm-6 help-block" [class.hidden]="!remark.hasError('maxlength')" >不能超过50个字符</label>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" (click)="save()">保存</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+

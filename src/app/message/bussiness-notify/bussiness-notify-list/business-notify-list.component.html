@@ -1,0 +1,133 @@
+<div class="box-body">
+  <form class="row form-horizontal" [formGroup]="businessNotifyQCForm">
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="id" class="col-lg-5 control-label">Id：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="id" class="col-lg-12 form-control" id="id" placeholder="id">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="orderNo" class="col-lg-5 control-label">订单号：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="orderNo" class="col-lg-12 form-control" id="orderNo" placeholder="id">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="receiver" class="col-lg-5 control-label">接收者：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="receiver" class="col-lg-12 form-control" id="receiver"
+                 placeholder="接收者id">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="receiverRole" class="col-lg-5 control-label">接收者角色：</label>
+        <div class="col-lg-7">
+          <select id="receiverRole" (change)="chooseReceiverRole()" class="form-control">
+            <option value="">全部</option>
+            <option value="driver" [selected]="businessNotifyQCForm.get(['receiver']).value == 'driver'">司机</option>
+            <option value="owner" [selected]="businessNotifyQCForm.get(['receiver']).value == 'owner'">货主</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="title" class="col-lg-5 control-label">标题：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="title" class="col-lg-12 form-control" id="title" placeholder="标题">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="content" class="col-lg-5 control-label">内容：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="content" class="col-lg-12 form-control" id="content"
+                 placeholder="内容">
+        </div>
+      </div>
+    </div>
+    <!-- Date and time range -->
+    <div class="col-lg-5">
+      <div class="input-group">
+        <label for="fromCreateTime" class="col-lg-5 control-label">开始时间:</label>
+        <div id="stimeRange" class="col-lg-7">
+          <input type="text" readonly formControlName="fromCreateTime" id="fromCreateTime" class="col-lg-12 form-control">
+        </div>
+      </div>
+      <!-- /.input group -->
+    </div>
+    <div class="col-lg-5">
+      <div class="input-group">
+        <label for="toCreateTime" class="col-lg-5 control-label">结束时间:</label>
+
+        <div id="etimeRange" class="col-lg-7">
+          <input type="text" readonly formControlName="toCreateTime" id="toCreateTime" class="col-lg-12 form-control">
+        </div>
+      </div>
+      <!-- /.input group -->
+    </div>
+    <div class="col-lg-1">
+      <input type="button" class="btn btn-block btn-primary" (click)="listSystemMessage()" value="搜索">
+    </div>
+    <!-- /.form group -->
+
+  </form>
+</div>
+
+<div class="box">
+  <!-- /.box-header -->
+  <div class="box-body">
+    <table id="orderChildListTable" class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>序号</th>
+        <th>Id</th>
+        <th>订单号</th>
+        <th>发送者</th>
+        <th>接收者</th>
+        <th>接收者角色</th>
+        <th>标题</th>
+        <th>内容</th>
+        <th>发送时间</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let i = index; let systemMessage of systemMessageList">
+        <td>{{(businessNotifyQCForm.get("pageNum").value - 1) * businessNotifyQCForm.get("pageSize").value + i + 1}}</td>
+        <td>{{systemMessage.id}}</td>
+        <td>{{systemMessage.orderNo}}</td>
+        <td>{{systemMessage.sender}}</td>
+        <td>{{systemMessage.receiver}}</td>
+        <td>{{systemMessage.receiverRole}}</td>
+        <td>{{systemMessage.title}}</td>
+        <td>{{systemMessage.content}}</td>
+        <td>{{systemMessage.createTime}}</td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <th>序号</th>
+        <th>Id</th>
+        <th>订单号</th>
+        <th>发送者</th>
+        <th>接收者</th>
+        <th>接收者角色</th>
+        <th>标题</th>
+        <th>内容</th>
+        <th>发送时间</th>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- /.box-body -->
+</div>
+<app-pagination [currentPage]="businessNotifyQCForm.get('pageNum').value" [pageSize]="businessNotifyQCForm.get('pageSize').value" [totalNum]="totalNum" [totalPages]="totalPages" (pageChange)="changePageNum($event)"></app-pagination>

@@ -1,0 +1,53 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">{{title}}</h3>
+  </div>
+  <!-- /.box-header -->
+  <!-- form start -->
+  <form class="form-horizontal msl" [formGroup]="formModel">
+    <div class="box-body">
+
+      <div class="form-group" [class.has-error]="!(formModel.get('key').valid||formModel.get('key').untouched)">
+        <label for="key" class="col-sm-2 control-label">key*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="key" class="form-control" id="key" placeholder="key" [readonly]="id != null">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['key'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['key'])" >不能超过32个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('minlength',['key'])" >不能少于1个字符</label>
+      </div>
+
+      <div class="form-group" [class.has-error]="!(formModel.get('value').valid||formModel.get('value').untouched)">
+        <label for="value" class="col-sm-2 control-label">value*</label>
+        <div class="col-sm-4">
+          <input type="text" formControlName="value" class="form-control" id="value" placeholder="value">
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['value'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['value'])" >不能超过32个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('minlength',['value'])" >不能少于1个字符</label>
+      </div>
+
+      <div class="form-group" [class.has-error]="!(formModel.get('content').valid||formModel.get('content').untouched)">
+        <label for="content" class="col-sm-2 control-label">描述*</label>
+        <div class="col-sm-4">
+          <textarea type="text" formControlName="content" class="form-control" id="content" placeholder="描述"></textarea>
+        </div>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('required',['content'])" >不能为空</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('maxlength',['content'])" >不能超过128个字符</label>
+        <label class="col-sm-6 help-block" [class.hidden]="!formModel.hasError('minlength',['content'])" >不能少于1个字符</label>
+      </div>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+      <button (click)="cancel()" type="button" class="btn btn-default">关闭</button>
+      <button (click)="save()" [disabled]="saveBtn" type="submit" class="btn btn-info pull-right">保存</button>
+
+    </div>
+
+    <!-- /.box-footer -->
+  </form>
+  <div class="overlay" *ngIf="loading">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
+</div>
+

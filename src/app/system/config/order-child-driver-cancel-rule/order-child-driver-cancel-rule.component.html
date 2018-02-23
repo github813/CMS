@@ -1,0 +1,75 @@
+<button class="btn-primary" (click)="showForm('create')">新建</button>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">司机取消子订单赔偿规则</h3>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+          <tr>
+            <th>序号</th>
+            <th>ID</th>
+            <th>超时时间（分钟）</th>
+            <th>赔偿金额（元）</th>
+            <th>创建时间</th>
+            <th>最后修改时间</th>
+            <th>操作</th>
+          </tr>
+          <tr *ngFor="let i = index; let orderChildDriverCancelRule of orderChildDriverCancelRuleList">
+            <td>{{i + 1}}</td>
+            <td>{{orderChildDriverCancelRule.id}}</td>
+            <td>{{orderChildDriverCancelRule.time}}</td>
+            <td>{{orderChildDriverCancelRule.compensationFee | number: ".2-2"}}</td>
+            <td>{{orderChildDriverCancelRule.createTime}}</td>
+            <td>{{orderChildDriverCancelRule.modifiedTime}}</td>
+            <td>
+              <a type="button" (click)="deleteOrderChildDriverCancelRule(orderChildDriverCancelRule.id)" class="btn btn-danger">删除</a>&nbsp;
+              <a type="button" (click)="update(orderChildDriverCancelRule)" class="btn btn-warning">修改</a></td>
+          </tr>
+        </table>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+  </div>
+</div>
+
+<div class="box-body" [hidden]="formOperation == null">
+  <form class="row form-horizontal" [formGroup]="orderChildDriverCancelRuleForm">
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="id" class="col-lg-5 control-label">Id：</label>
+        <div class="col-lg-7">
+          <input type="text" readonly formControlName="id" class="col-lg-12 form-control" id="id" placeholder="id">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group" [class.has-error]="!(orderChildDriverCancelRuleForm.get('time').valid||orderChildDriverCancelRuleForm.get('time').untouched)">
+        <label for="time" class="col-lg-5 control-label">时间：</label>
+        <div class="col-lg-7">
+          超过
+          <input type="number" formControlName="time" class="col-lg-12 form-control" id="time" placeholder="时间">
+          分钟
+        </div>
+        <label class="help-block" [class.hidden]="!orderChildDriverCancelRuleForm.hasError('min',['time'])" >时间最小为1分钟</label>
+        <label class="help-block" [class.hidden]="!orderChildDriverCancelRuleForm.hasError('int',['time'])" >时间必填,且为整数</label>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group" [class.has-error]="!(orderChildDriverCancelRuleForm.get('compensationFee').valid||orderChildDriverCancelRuleForm.get('compensationFee').untouched)">
+        <label for="compensationFee" class="col-lg-5 control-label">赔偿金额：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="compensationFee" class="col-lg-12 form-control" id="compensationFee" placeholder="赔偿金额">
+        </div>
+        <label class="help-block" [class.hidden]="!orderChildDriverCancelRuleForm.hasError('min',['compensationFee'])" >赔偿金额最小为1元</label>
+        <label class="help-block" [class.hidden]="!orderChildDriverCancelRuleForm.hasError('int',['compensationFee'])" >赔偿金额必填,且为整数</label>
+      </div>
+    </div>
+    <button (click)="submit()">保存</button>
+  </form>
+</div>
+<app-confirm-popup-window [warningMsg]="warningMsg" (result)="setConfirmResult($event)"></app-confirm-popup-window>
+<app-result-popup-window [result]="result" [status]="resultMsgStatus"></app-result-popup-window>

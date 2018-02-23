@@ -1,0 +1,102 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">审核信息</h3>
+      </div>
+      <!-- /.box-header -->
+      <!-- form start -->
+      <form class="form-horizontal" id="myForm"  [formGroup]="formModel">
+        <div class="box-body">
+          <div class="form-group">
+            <label for="name" class="col-sm-3 control-label">创建时间</label>
+            <div class="col-sm-9">
+              <input [value]="driverAuthInfo.createTime" class="form-control" id="name" placeholder="创建时间" disabled>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label  class="col-sm-3 control-label">审核状态</label>
+            <div class="col-sm-9">
+              <input *ngIf="driverAuthInfo.status==1" value="审核失败" class="form-control"  placeholder="审核状态" disabled>
+              <input *ngIf="driverAuthInfo.status==2" value="审核通过" class="form-control"  placeholder="审核状态" disabled>
+              <input *ngIf="driverAuthInfo.status==3" value="审核中" class="form-control"  placeholder="审核状态" disabled>
+              <input *ngIf="driverAuthInfo.status==0" value="审核中" class="form-control"  placeholder="审核状态" disabled>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="statusResult" class="col-sm-3 control-label">审核结果</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="statusResult" formControlName="statusResult">
+                <option value="">请选择</option>
+                <option value="2">审核通过</option>
+                <option value="1">审核失败</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="content" class="col-sm-3 control-label">审核原因</label>
+            <div class="col-sm-9">
+              <textarea formControlName="content"  class="form-control" rows="3" id="content"></textarea>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+          <button (click)="cancel()" class="btn btn-default">返回</button>
+          <button (click)="authUpdate()" class="btn btn-info pull-right "
+                  *ngIf="driverAuthInfo.status==3 || driverAuthInfo.status==0">确定</button>
+          <button (click)="coercionThrough()" class="btn btn-danger pull-right btn-margin"
+                  *ngIf="driverAuthInfo.status==3 || driverAuthInfo.status==0">强制通过</button>
+        </div>
+        <!-- /.box-footer -->
+      </form>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="box box-info">
+
+      <div class="box-body form-view">
+        <div class="form-group">
+          <label class="col-sm-4 control-label">真实姓名：</label>
+          <div class="col-sm-8">
+            <p class="form-control-static">{{driverAuthInfo.name}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label">电话号码：</label>
+          <div class="col-sm-8">
+            <p class="form-control-static">{{driverAuthInfo.mobile}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label">身份证号：</label>
+          <div class="col-sm-8">
+            <p class="form-control-static">{{driverAuthInfo.cardNo}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class=" control-label">身份证正面：</label>
+        </div>
+        <div class="form-group">
+          <img src="{{driverAuthInfo.domain+driverAuthInfo.cardFrontImg}}" class="img-rounded" >
+        </div>
+        <div class="form-group">
+          <label class=" control-label">身份证反面：</label>
+        </div>
+        <div class="form-group">
+            <img src="{{driverAuthInfo.domain+driverAuthInfo.cardBackImg}}" class="img-rounded" >
+        </div>
+        <div class="form-group">
+          <label class="control-label">手持身份证：</label>
+        </div>
+        <div class="form-group">
+            <img src="{{driverAuthInfo.domain+driverAuthInfo.faceCardImg}}" class="img-rounded" >
+        </div>
+      </div>
+  </div>
+  </div>
+</div>

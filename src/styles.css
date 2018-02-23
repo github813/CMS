@@ -1,0 +1,177 @@
+/* You can add global styles to this file, and also import other style files */
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css";
+@import "https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css";
+
+.navMenuBtn{
+  padding: 15px;
+  color: #fff;
+  background: transparent;
+  line-height: 20px;
+  float: left;
+  display: block;
+}
+.navMenuBtn:hover{
+  color: #f6f6f6;
+  background: #367fa9;
+}
+.pagination>li>a.active1{
+  background: #fafada;
+}
+.msl .help-block{
+  display: none;
+  margin-bottom: 0px;
+}
+.msl .has-success .help-block{
+  display: none;
+}
+.msl .has-error .help-block{
+  display: block;
+}
+.msl .form-group .input-group[class*=col-] {
+  float: left;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.msl .alert, .msl .callout{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.topAlertDiv{
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+.topAlertDiv .topAlert{
+  position:absolute;
+  top: -30px;
+  width:100%;
+}
+.topAlertDiv .alert{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.toastMessage{
+  width:100%;
+  position:absolute;
+  top:90px;
+  z-index:1051;
+  text-align: center;
+
+}
+.toastMessage.fade{
+  transition: opacity .4s linear;
+}
+
+.toastMessage .msg{
+  display: inline-block;
+  background-color:#333333;
+  color:white;
+  font-size:18px;
+  padding:10px;
+  margin:10px;
+  border-radius:10px;
+}
+.modal-body .box{
+  margin-bottom: 0px;
+}
+.login-wapper{
+  position: absolute;
+  top:0;
+  left:0;
+  height: 100%;
+  width: 100%;
+  background:#d2d6de;
+  z-index: 1040;
+}
+.login-box{
+  background: transparent;
+}
+.login-box-body .form-group,.form-newline .form-group{
+  margin-bottom: 35px;
+}
+.login-box-body .help-block,.form-newline .help-block{
+  position:absolute;
+}
+.form-control-static.msl{
+  display: table-cell;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background: #fff;
+  border: 1px solid #d2d6de;
+}
+.nav-scroll{
+  position: absolute;
+  color: #fff;
+  padding: 10px 5px;
+  background-color: #00a7d0;
+  z-index: 1;
+  display: none;
+}
+.skin-blue .main-sidebar {
+  background: none;
+  z-index: 1040;
+}
+
+@media (max-width: 767px){
+  .navbar-nav {
+    float: left;
+    margin: 0;
+  }
+  .skin-blue .main-sidebar {
+    z-index: 810;
+  }
+  .navbar-nav>li {
+    float: left;
+  }
+  .main-header .sidebar-toggle{
+    padding: 10px 15px;
+    position: absolute;
+    margin-top: -45px;
+  }
+  .main-header .navbar-custom-menu{
+    position: absolute;
+    margin-top: -50px;
+    right:0px;
+  }
+  .nav-xs{
+    width: 1024px;
+    margin-left: 15px;
+  }
+  .main-header .navbar {
+    min-height: 40px;
+  }
+  .navbar-nav>li>a {
+    padding: 10px;
+  }
+  .nav-scroll{
+    display: block;
+  }
+  .box-header>.box-tools{
+    position: static;
+  }
+
+}
+@media (min-width: 768px){
+  .sidebar-mini.sidebar-collapse #container {
+    left: 50px;
+  }
+}
+
+.img-rounded{
+  width: 100%;
+}
+.form-view .control-label {
+  padding-top: 7px;
+  margin-bottom: 0;
+}
+.pagination{
+  margin: 0;
+}
+
+.nav-scroll.fly-right{
+  right: 0px;
+}

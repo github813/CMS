@@ -1,0 +1,65 @@
+<div class="box">
+  <div class="box-header">
+    <form class="row " [formGroup]="driverAuthQCForm">
+    <div class="form-group col-sm-3">
+      <input formControlName="name" class=" form-control" id="name" placeholder="姓名">
+    </div>
+
+    <div class="form-group col-sm-3">
+      <input formControlName="cardNo" class=" form-control" id="cardNo" placeholder="身份证号">
+    </div>
+
+    <div class="form-group col-sm-3">
+      <select id="status" class=" form-control" (change)="chooseStatus()">
+        <option value="">全部状态</option>
+        <option value="1" [selected]="">审核失败</option>
+        <option value="2" [selected]="">审核通过</option>
+        <option value="0" [selected]="">审核中</option>
+      </select>
+    </div>
+
+    <div class="col-sm-3">
+      <input type="button" class="btn btn-primary btn-sm" (click)="searchDriverAuthList()" value="搜索">
+    </div>
+    <!-- /.form group -->
+  </form>
+
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <tr>
+        <th>#</th>
+        <th>入驻类型</th>
+        <th>姓名</th>
+        <th>手机号</th>
+        <th>身份证号</th>
+        <th>提交日期</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+      <tr *ngFor="let driverAuthInfo of driverAuthInfoList ;let i = index;">
+        <td>{{driverAuthInfo.id}}</td>
+        <td>司机</td>
+        <td>{{driverAuthInfo.name}}</td>
+        <td>{{driverAuthInfo.mobile}}</td>
+        <td>{{driverAuthInfo.cardNo}}</td>
+        <td>{{driverAuthInfo.createTime}}</td>
+        <td>
+          <span *ngIf="driverAuthInfo.status==0">审核中</span>
+          <span *ngIf="driverAuthInfo.status==1">审核失败</span>
+          <span *ngIf="driverAuthInfo.status==2">审核通过</span>
+          <span *ngIf="driverAuthInfo.status==3">审核中</span>
+        </td>
+        <td>
+          <a class="btn btn-warning btn-xs" *ngIf="driverAuthInfo.status==0 || driverAuthInfo.status==3" (click)="update(driverAuthInfo)">审核</a>
+          <a class="btn btn-info btn-xs" *ngIf="driverAuthInfo.status==1 || driverAuthInfo.status==2" (click)="update(driverAuthInfo)">查看</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- /.box-body -->
+  <app-pagination [currentPage]="pageNum" [pageSize]="pageSize" [totalNum]="totalNum" [totalPages]="totalPages" (pageChange)="changePageNum($event)"></app-pagination>
+</div>
+<!-- /.box -->
+

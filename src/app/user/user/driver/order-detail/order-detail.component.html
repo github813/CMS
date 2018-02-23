@@ -1,0 +1,119 @@
+<div class="box-body">
+  <div class="box-header with-border">
+    <ul class="nav nav-tabs">
+      <li role="presentation"><a (click)="showUserDetail(id)">基本信息</a></li>
+      <li role="presentation" class="active"><a (click)="showOrderDetail(id)">货单信息</a></li>
+      <li role="presentation"><a (click)="showEvaluateDetail(id)">评价信息</a></li>
+    </ul>
+  </div>
+  <form class="row form-horizontal" [formGroup]="orderChildQCForm">
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="childNo" class="col-lg-5 control-label">订单号：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="childNo" class="col-lg-12 form-control" id="childNo" placeholder="订单号">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="ownerName" class="col-lg-5 control-label">货主姓名：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="ownerName" class="col-lg-12 form-control" id="ownerName"
+                 placeholder="货主姓名">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="truckNo" class="col-lg-5 control-label">车牌号：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="truckNo" class="col-lg-12 form-control" id="truckNo" placeholder="车牌号">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="driverName" class="col-lg-5 control-label">司机姓名：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="driverName" class="col-lg-12 form-control" id="driverName"
+                 placeholder="司机姓名">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="driverPhone" class="col-lg-5 control-label">司机手机号：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="driverPhone" class="col-lg-12 form-control" id="driverPhone"
+                 placeholder="司机手机号">
+        </div>
+      </div>
+    </div>
+    <!-- Date and time range -->
+    <!--<div class="col-lg-7">-->
+      <!--<div class="input-group">-->
+        <!--<label for="timeRangeInput" class="col-lg-5 control-label">时间范围:</label>-->
+        <!--<div class="input-group-addon">-->
+          <!--<i class="fa fa-clock-o"></i>-->
+        <!--</div>-->
+        <!--<div id="timeRange" class="col-lg-7">-->
+          <!--<input type="text" formControlName="timeRangeInput" id="timeRangeInput" class="col-lg-12 form-control">-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--&lt;!&ndash; /.input group &ndash;&gt;-->
+    <!--</div>-->
+    <div class="col-lg-1">
+      <input type="button" class="btn btn-block btn-primary btn-lg" (click)="searchOrderChildList()" value="搜索">
+    </div>
+    <!-- /.form group -->
+
+  </form>
+</div>
+
+<div class="box">
+  <!-- /.box-header -->
+  <div class="box-body">
+    <table id="orderChildListTable" class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>序号</th>
+        <th>订单号</th>
+        <th>货主名</th>
+        <th>车牌号</th>
+        <th>司机姓名</th>
+        <th>司机手机号</th>
+        <th>发货人Id</th>
+        <th>收货人Id</th>
+        <th>货物保险</th>
+        <th>赔偿金</th>
+        <th>状态</th>
+        <th>创建时间</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let i = index; let orderChild of orderChildList">
+        <td>{{(pageNum - 1) * pageSize + i + 1}}</td>
+        <td>{{orderChild.childNo}}</td>
+        <td>{{orderChild.ownerName}}</td>
+        <td>{{orderChild.truckNo}}</td>
+        <td>{{orderChild.driverName}}</td>
+        <td>{{orderChild.driverPhone}}</td>
+        <td>{{orderChild.sendId}}</td>
+        <td>{{orderChild.receiveId}}</td>
+        <td>{{orderChild.insuranceFee | number:'.2'}}</td>
+        <td>{{orderChild.compensationFee | number: '.2'}}</td>
+        <td>{{orderChild.status}}</td>
+        <td>{{orderChild.createTime | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>
+          <a type="button" (click)="toOrderChildDetail(orderChild)">查看详情</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- /.box-body -->
+</div>
+<app-pagination [currentPage]="pageNum" [pageSize]="pageSize" [totalNum]="totalNum" [totalPages]="totalPages" (pageChange)="changePageNum($event)"></app-pagination>

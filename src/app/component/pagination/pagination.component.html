@@ -1,0 +1,40 @@
+<!--<div class="box-footer clearfix">-->
+
+<!--<ul class="pagination pagination-sm no-margin pull-right">-->
+
+<!--<li *ngIf="isShowPrev"><a (click)="prev()" href="javascript:;">上一页</a></li>-->
+<!--<li *ngFor="let i of arrPage">-->
+<!--<a (click)="selectPage(i)" [class.active]="i == currentPage" href="javascript:;">{{i}}</a>-->
+<!--</li>-->
+<!--<li *ngIf="isShowNext"><a (click)="next()" href="javascript:;">下一页</a></li>-->
+<!--</ul>-->
+<!--<div class=" pull-right">-->
+<!--<input [formControl]="pageInput" style="width:30px">-->
+<!--<button (click)="goPage()" class="btn btn-info btn-xs" >跳转</button>-->
+<!--</div>-->
+<!--</div>-->
+<div  class="box-footer" >
+  <div class="row">
+    <div class="col-sm-3">
+      共{{totalNum}}条/{{totalPages}}页数据&nbsp;&nbsp;每页
+        <select id="pageSize" (change)="changePageSize()" >
+          <option value="10" [selected] = "10 == pageSize">10</option>
+          <option value="20" [selected] = "20 == pageSize">20</option>
+          <option value="30" [selected] = "30 == pageSize">30</option>
+          <option value="40" [selected] = "40 == pageSize">40</option>
+          <option value="50" [selected] = "50 == pageSize">50</option>
+        </select>
+        条
+    </div>
+    <div  class="col-sm-6" style="text-align: center">
+      <div id="paginator" ></div >
+    </div>
+    <div [hidden]="totalPages == 1" class="col-sm-3">
+      跳转到第
+      <input id="currentPage" type="number" min="1" max="{{totalPages}}" value="1">
+      页
+      <button id="gotoPage" (click)="gotoPage()" class="btn btn-sm btn-default ">确定</button>
+    </div>
+  </div>
+</div>
+

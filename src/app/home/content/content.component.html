@@ -1,0 +1,22 @@
+
+<div class="content-wrapper" >
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      {{pageTitle}}
+      <small>{{pageDesc}}</small>
+    </h1>
+  </section>
+  <section class="topAlertDiv">
+    <div class="topAlert fade " [class.in] = "alert.isShow">
+      <span class=" alert {{alert.css}} ">{{alert.msg}}</span>
+    </div>
+  </section>
+  <!-- Main content -->
+  <section class="content">
+
+    <!-- Your Page Content Here -->
+    <router-outlet></router-outlet>
+  </section>
+  <!-- /.content -->
+</div>

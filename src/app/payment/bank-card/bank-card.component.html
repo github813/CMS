@@ -1,0 +1,72 @@
+<div class="box">
+  <div class="box-header">
+    <div style="height: 30px;">
+      <a class="btn btn-success btn-sm " (click)="create()">创建</a>
+    </div>
+    <div class="box-tools">
+      <div class="input-group input-group-sm w35">
+        <div class="input-group-btn-alone" >
+          <button type="submit" class="btn btn-primary" (click)="findPage(true)">查询</button>
+        </div>
+      </div>
+      <div class="input-group input-group-sm w100">
+        <input type="text" name="table_search" [formControl]="userCodeFilter" class="form-control pull-right"
+               placeholder="钱包账号">
+
+      </div>
+      <div class="input-group input-group-sm w100">
+        <input type="text" name="table_search" [formControl]="mobileFilter" class="form-control pull-right"
+               placeholder="手机号">
+      </div>
+      <div class="input-group input-group-sm w100">
+        <select class="form-control" [formControl]="fasterFilter">
+          <option value="">是否快捷</option>
+          <option value="0">否</option>
+          <option value="1">是</option>
+        </select>
+      </div>
+      <div class="input-group input-group-sm">
+        <input type="text" name="table_search" [formControl]="cardNoFilter" class="form-control pull-right"
+               placeholder="银行卡号">
+      </div>
+      <div class="input-group input-group-sm">
+        <select class="form-control" [formControl]="bankCodeFilter">
+          <option value="">选择银行</option>
+          <option *ngFor="let e of bankList ;let i = index;" value="{{e[0]}}">{{e[1]}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <tr>
+        <th>ID</th>
+        <th>钱包账号</th>
+        <th>姓名</th>
+        <th>银行卡号</th>
+        <th>银行名称</th>
+        <th>是否快捷</th>
+        <th>快捷状态</th>
+        <th>绑定序列号</th>
+        <th>创建时间</th>
+      </tr>
+      <tr *ngFor="let e of dataList ;let i = index;">
+        <td>{{e.id}}</td>
+        <td>{{e.userCode}}</td>
+        <td>{{e.name}}</td>
+        <td>{{e.cardNo}}</td>
+        <td>{{e.bankCode|transform:"bankCode"}}</td>
+        <td>{{e.faster}}</td>
+        <td>{{e.bindingStatus}}</td>
+        <td>{{e.snBinding}}</td>
+        <td>{{e.createTime}}</td>
+      </tr>
+    </table>
+  </div>
+  <!-- /.box-body -->
+  <app-simple-page [page]="page" (pageChange)="pageChange($event)"></app-simple-page>
+  <div class="overlay" *ngIf="loading">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
+</div>

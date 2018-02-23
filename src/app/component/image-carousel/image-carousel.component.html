@@ -1,0 +1,41 @@
+<div class="modal fade" id="imageCarouseModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          {{imageCarouse?.title}}
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div  class="carousel slide" id="myCarousel">
+          <!-- 轮播（Carousel）指标 -->
+          <ol class="carousel-indicators" >
+            <li data-target="#myCarousel" *ngFor="let image of imageCarouse?.imageList; let i = index" [attr.data-slide-to] = "i" [class.active]="i == 0"></li>
+          </ol>
+          <!-- 轮播（Carousel）项目 -->
+          <div class="carousel-inner" >
+            <div class="item" *ngFor="let i = index; let image of imageCarouse?.imageList" [class.active]="i == 0">
+              <img src="{{imageCarouse.domain + image}}" alt="{{imageCarouse.title}}">
+              <div class="carousel-caption">第{{i + 1}}张</div>
+            </div>
+          </div>
+          <!-- 轮播（Carousel）导航 -->
+          <a class="carousel-control left" href="#myCarousel"
+             data-slide="prev">&lsaquo;</a>
+          <a class="carousel-control right" href="#myCarousel"
+             data-slide="next">&rsaquo;</a>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+
+</div>

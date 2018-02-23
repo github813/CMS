@@ -1,0 +1,88 @@
+<div class="box-body">
+  <form class="row form-horizontal" [formGroup]="smsTemplateQCForm">
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="type" class="col-lg-5 control-label">短信类型：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="type" class="col-lg-12 form-control" id="type" placeholder="短信类型">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="templateCode" class="col-lg-5 control-label">短信模板Id：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="templateCode" class="col-lg-12 form-control" id="templateCode" placeholder="模板Id">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="description" class="col-lg-5 control-label">短信描述：</label>
+        <div class="col-lg-7">
+          <input type="text" formControlName="description" class="col-lg-12 form-control" id="description" placeholder="短信描述">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-1">
+      <input type="button" class="btn btn-block btn-primary" (click)="searchTemplate()" value="搜索">
+    </div>
+    <!-- /.form group -->
+
+  </form>
+</div>
+
+
+<div class="box">
+  <!-- /.box-header -->
+  <div class="box-body">
+    <table id="smsTemlateListTable" class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>序号</th>
+        <th>Id</th>
+        <th>类型</th>
+        <th>模板Id</th>
+        <th>描述</th>
+        <th>模板内容</th>
+        <th>创建时间</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let i = index; let smsTemplate of smsTemplateList">
+        <td>{{(smsTemplateQCForm.get("pageNum").value - 1) * smsTemplateQCForm.get("pageSize").value + i + 1}}</td>
+        <td>{{smsTemplate.id}}</td>
+        <td>{{smsTemplate.type}}</td>
+        <td>{{smsTemplate.templateCode}}</td>
+        <td>{{smsTemplate.description}}</td>
+        <td>{{smsTemplate.content}}</td>
+        <td>{{smsTemplate.createTime}}</td>
+        <td>
+          <a type="button" class="btn-sm btn-block btn-danger" (click)="deleteSmsTemplate(smsTemplate.type)">删除</a>
+          <a type="button" class="btn-sm btn-block btn-warning" (click)="toUpdateSmsTemplate(smsTemplate)">修改</a>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <th>序号</th>
+        <th>Id</th>
+        <th>类型</th>
+        <th>模板Id</th>
+        <th>描述</th>
+        <th>模板内容</th>
+        <th>创建时间</th>
+        <th>操作</th>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- /.box-body -->
+</div>
+<app-pagination [currentPage]="smsTemplateQCForm.get('pageNum').value" [pageSize]="smsTemplateQCForm.get('pageSize').value" [totalNum]="totalNum" [totalPages]="totalPages" (pageChange)="changePageNum($event)"></app-pagination>
+<app-confirm-popup-window [warningMsg]="warningMsg" (result)="setConfirmResult($event)"></app-confirm-popup-window>
+<app-result-popup-window [result]="result" [status]="resultMsgStatus"></app-result-popup-window>
+
+

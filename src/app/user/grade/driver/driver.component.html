@@ -1,0 +1,48 @@
+<button (click)="create()">新建</button>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">司机等级权益列表</h3>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+          <tr>
+            <!--<th>ID</th>-->
+            <th>等级编码</th>
+            <th>等级名称</th>
+            <th>所需经验值</th>
+            <th>信息费率</th>
+            <th>积分优惠</th>
+            <th>信用购车</th>
+            <th>商城优惠</th>
+            <th>货源信息优先推送</th>
+            <th>超级客服</th>
+            <th>最后修改时间</th>
+            <th>操作</th>
+          </tr>
+          <tr *ngFor="let i = index; let driverGrade of driverGradeList">
+            <!--<td>{{driverGrade.id}}</td>-->
+            <td>{{driverGrade.gradeNo}}</td>
+            <td>{{driverGrade.gradeName}}</td>
+            <td>{{driverGrade.gradeExp}}</td>
+            <td>{{driverGrade.informationRate}}</td>
+            <td>{{driverGrade.integralRate}}</td>
+            <td>{{driverGrade.creditCeiling}}</td>
+            <td>{{driverGrade.mallRate}}</td>
+            <td>{{driverGrade.pushPriority==1?"是":"否"}}</td>
+            <td>{{driverGrade.superService==1?"是":"否"}}</td>
+            <td>{{driverGrade.modifiedTime?driverGrade.modifiedTime.substring(0,19):""}}</td>
+            <td>
+              <a type="button" (click)="update(driverGrade.id)" class="btn btn-warning">修改</a>
+              <a type="button" *ngIf="driverGradeList.length-1==i" (click)="deleteDriverGrade(driverGrade.id)" class="btn btn-danger">删除</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+  </div>
+</div>

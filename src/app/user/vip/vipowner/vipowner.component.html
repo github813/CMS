@@ -1,0 +1,155 @@
+<div class="box">
+  <div class="box-header">
+    <div class="box-btns">
+      <a class="btn btn-success btn-sm " data-toggle="modal" data-target="#myModal" >创建</a>
+      <a (click)="gobank()" class="btn btn-success btn-sm " >返回</a>
+    </div>
+    <div class="box-tools">
+      <div class="input-group input-group-sm w35">
+        <div class="input-group-btn-alone" >
+          <button (click)="submit()" type="submit" class="btn btn-primary" >查询</button>
+        </div>
+      </div>
+      <div class="input-group input-group-sm w100">
+        <!--<label>-->
+          <!--<span>姓名：</span>-->
+          <!--<input id="ownername" type="text" name="table_search"  class="form-control pull-right">-->
+        <!--</label>-->
+        <!--<label>-->
+          <!--<span>手机号：</span>-->
+          <!--<input id="ownermobile" type="text" name="table_search"  class="form-control pull-right"-->
+                 <!--placeholder="">-->
+        <!--</label>-->
+
+
+
+      </div>
+
+
+      <div class="col-lg-3" style="width:41% ;">
+        <div class="form-group">
+          <label style="padding-top: 7px;padding-right: 0px;padding-left: 80px;"  class="col-lg-5 control-label">姓名：</label>
+          <div class="col-lg-7">
+            <input type="text"  class="col-lg-12 form-control" id="ownername" placeholder="姓名">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3"style="width:41% ;">
+        <div class="form-group">
+          <label style="padding-top: 7px;padding-right: 0px;padding-left: 80px;" class="col-lg-5 control-label">手机号：</label>
+          <div class="col-lg-7">
+            <input type="text"  class="col-lg-12 form-control" id="ownermobile"
+                   placeholder="手机号">
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <tr>
+        <th>ID</th>
+        <th>姓名</th>
+        <th>手机号</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+      <tr *ngFor="let viplist of vipownerList; let i = index">
+        <td>{{viplist.id}}</td>
+        <td>{{viplist.name}}</td>
+        <td>{{viplist.mobile}}</td>
+        <td *ngIf="viplist.status ==0">禁用</td>
+        <td *ngIf="viplist.status ==1">启用</td>
+        <td>
+          <a class="btn btn-warning btn-xs" data-toggle="modal" (click)="ChangeVipIndex = i" data-target="#myModa2">修改</a>
+          <a class="btn btn-warning btn-xs"  (click)="ChangeVipDisable(i,viplist.status)">{{viplist.status == "0"?"启用":"禁用"}}</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- /.box-body -->
+  <app-simple-page [page]="page" (pageChange)="pageChange($event)"></app-simple-page>
+  <!--<div class="overlay">-->
+    <!--<i class="fa fa-refresh fa-spin"></i>-->
+  <!--</div>-->
+</div>
+<!--创建-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          添加货主
+        </h4>
+      </div>
+      <div class="modal-body">
+       <label>姓名：<input id="name" type="text"maxlength="4"></label>
+        <label>手机号：<input id="mobile" type="text"maxlength="11"></label>
+        <label>密码：<input id="pwd" minlength="6"maxlength="12" type="text"placeholder="6或12位数字密码"></label>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+        </button>
+        <button (click) = "VipSave()" type="button" class="btn btn-primary">
+          确定
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--修改-->
+<div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <h4 class="modal-title" id="myModalLabe">
+          修改货主
+        </h4>
+      </div>
+      <div class="modal-body">
+
+        <!--<label>-->
+          <!--是否禁用-->
+          <!--<select name="" id="">-->
+            <!--<option value="0">否</option>-->
+            <!--<option value="1">是</option>-->
+          <!--</select>-->
+
+
+        <select name="changeType" id="changeType">
+          <option value="">请选择</option>
+          <option value="name">姓名</option>
+          <option value="pwd" minlength="6"maxlength="12" type="text"placeholder="6或12位数字密码">密码</option>
+
+
+
+
+
+        </select>
+          <input id="changeVal" type="text"/>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+        </button>
+        <button type="button" class="btn btn-primary" (click)="changeVip()">
+          确定
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
